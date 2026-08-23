@@ -265,6 +265,52 @@
   .cmdtable tr.new td.en { color: var(--purple); }
 
 
+
+  /* 每日一词 */
+  .word-card {
+    max-width: 1320px;
+    margin: 28px auto 0;
+    padding: 22px 28px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 70% 100% at 50% -30%, rgba(56,189,248,0.14), transparent),
+      var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius);
+  }
+  .word-label {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .word-en {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 30px; font-weight: 600;
+    color: var(--text);
+    text-shadow: 0 0 18px rgba(56,189,248,0.5);
+    margin-bottom: 6px;
+  }
+  .word-zh { font-size: 14px; color: var(--text-2); }
+  .word-btn {
+    margin-top: 12px;
+    background: rgba(56,189,248,0.10);
+    border: 1px solid rgba(56,189,248,0.35);
+    color: var(--accent);
+    padding: 7px 20px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .word-btn:hover { background: rgba(56,189,248,0.2); box-shadow: var(--glow); }
+  @media (max-width: 720px) {
+    .word-card { margin: 20px 16px 0; padding: 18px 16px; }
+    .word-en { font-size: 24px; }
+  }
+
   /* 命令表搜索 UI */
   .cmd-ui { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
   #cmdSearch {
@@ -410,6 +456,13 @@
     <span class="pill">已驱动本地 AI</span>
   </div>
 </header>
+
+<div class="word-card reveal" id="wordCard">
+  <div class="word-label">每日一词 · 随机记忆</div>
+  <div class="word-en" id="wordEn">print</div>
+  <div class="word-zh" id="wordZh">打印、喊话 — 把内容显示在窗口里</div>
+  <button class="word-btn" onclick="showRandomWord()">换一个</button>
+</div>
 
 <main>
 
@@ -779,6 +832,44 @@
 <footer>MY AI LEARNING JOURNAL · 每天进步一点点</footer>
 
 
+
+  // 每日一词
+  var words = [
+    {en: "print", zh: "打印、喊话", desc: "把括号里的内容显示在窗口里"},
+    {en: "input", zh: "输入", desc: "程序停下来，等你打字，把你打的内容交给程序"},
+    {en: "import", zh: "导入", desc: "把工具包拿进来用"},
+    {en: "requests", zh: "上网工具包", desc: "专门管程序上网的工具箱"},
+    {en: "get", zh: "取", desc: "去网址把数据取回来"},
+    {en: "post", zh: "提交", desc: "把数据送给服务器，服务器处理完返回结果"},
+    {en: "if", zh: "如果", desc: "条件成立就执行下面的小弟"},
+    {en: "else", zh: "否则", desc: "条件不成立时走这一路"},
+    {en: "==", zh: "是不是", desc: "问两边是不是一样"},
+    {en: "json", zh: "数据格式", desc: "程序之间传数据的通用格式"},
+    {en: "text", zh: "文字内容", desc: "r.text = 取回来的原始文字"},
+    {en: "url", zh: "网址", desc: "网站的地址，https:// + 地址才算完整"},
+    {en: "stream", zh: "流", desc: "True=边生成边发；False=一次性返回"},
+    {en: "message", zh: "消息", desc: "AI 回复的那条消息"},
+    {en: "content", zh: "内容", desc: "消息里的文字内容"},
+    {en: "role", zh: "角色", desc: "谁在说话：user=用户，assistant=AI"},
+    {en: "localhost", zh: "本机", desc: "指当前这台电脑"},
+    {en: "port", zh: "端口", desc: "服务监听的号（11434）"},
+    {en: "api", zh: "接口", desc: "程序调用的功能入口"},
+    {en: "chat", zh: "聊天", desc: "对话功能的接口入口"},
+    {en: "exit", zh: "退出", desc: "离开 Python，回到黑窗口"},
+    {en: "notepad", zh: "记事本", desc: "命令行打开记事本写代码"},
+    {en: "ren", zh: "改名", desc: "命令行改文件名"},
+    {en: "cmd", zh: "命令", desc: "打开黑窗口的指令"},
+    {en: "python", zh: "蟒蛇", desc: "进入 Python 程序"},
+    {en: "assistant", zh: "助手", desc: "AI 说话的角色"},
+    {en: "user", zh: "用户", desc: "你说话的角色"}
+  ];
+  function showRandomWord() {
+    var w = words[Math.floor(Math.random() * words.length)];
+    document.getElementById('wordEn').textContent = w.en;
+    document.getElementById('wordZh').textContent = w.zh + ' — ' + w.desc;
+  }
+  showRandomWord();
+
   // 命令表搜索 + 分类筛选
   (function () {
     var searchInput = document.getElementById('cmdSearch');
@@ -786,28 +877,37 @@
     var chips = document.querySelectorAll('.chip');
     var activeCat = 'all';
     function applyFilter() {
-      var q = searchInput.value.trim().toLowerCase();
-      var rows = document.querySelectorAll('.cmdtable tbody tr');
-      var visible = 0;
-      rows.forEach(function (tr) {
-        var cat = tr.getAttribute('data-cat') || 'all';
-        var text = tr.textContent.toLowerCase();
-        var matchQ = !q || text.indexOf(q) !== -1;
-        var matchCat = activeCat === 'all' || cat === activeCat;
-        var show = q ? matchQ : matchCat;
-        tr.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      var empty = document.getElementById('cmdEmpty');
-      if (!empty) {
-        empty = document.createElement('div');
-        empty.id = 'cmdEmpty';
-        empty.className = 'cmd-empty';
-        empty.textContent = '没有找到匹配的命令';
-        document.querySelector('.cmdtable').after(empty);
+      try {
+        var q = (searchInput.value || '').trim().toLowerCase();
+        var rows = document.querySelectorAll('.cmdtable tr[data-cat]');
+        var visible = 0;
+        for (var i = 0; i < rows.length; i++) {
+          var tr = rows[i];
+          var cat = tr.getAttribute('data-cat') || 'all';
+          var text = tr.textContent.toLowerCase();
+          var matchQ = !q || text.indexOf(q) !== -1;
+          var matchCat = activeCat === 'all' || cat === activeCat;
+          var show = q ? matchQ : matchCat;
+          tr.style.display = show ? '' : 'none';
+          if (show) visible++;
+        }
+        var empty = document.getElementById('cmdEmpty');
+        if (!empty) {
+          empty = document.createElement('div');
+          empty.id = 'cmdEmpty';
+          empty.className = 'cmd-empty';
+          empty.textContent = '没有找到匹配的命令，换个词试试';
+          document.querySelector('.cmdtable').after(empty);
+        }
+        empty.style.display = visible ? 'none' : 'block';
+      } catch (e) {
+        console.log('filter error', e);
       }
-      empty.style.display = visible ? 'none' : 'block';
     }
+    applyFilter();
+    searchInput.addEventListener('input', applyFilter);
+    searchInput.addEventListener('keyup', applyFilter);
+    searchInput.addEventListener('search', applyFilter);
     applyFilter();
     searchInput.addEventListener('input', applyFilter);
     searchInput.addEventListener('keyup', applyFilter);
