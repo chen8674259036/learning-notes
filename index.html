@@ -42,13 +42,13 @@
   }
   ::selection { background: rgba(56,189,248,0.3); }
 
+  .sec-cmd   { --acc: var(--cyan); }
   .sec-pits  { --acc: var(--red); }
   .sec-qa    { --acc: var(--blue); }
   .sec-skills{ --acc: var(--green); }
   .sec-golden{ --acc: var(--purple); }
-  .sec-cmd   { --acc: var(--cyan); }
-  .sec-l6    { --acc: var(--gold); }
   .sec-l7    { --acc: var(--teal); }
+  .sec-l6    { --acc: var(--gold); }
 
   nav {
     position: sticky; top: 0; z-index: 50;
@@ -59,26 +59,22 @@
   nav .inner {
     max-width: 1320px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 28px;
+    padding: 14px 20px;
   }
-  nav .logo {
-    font-size: 14px; font-weight: 600; letter-spacing: -0.2px;
-    color: var(--text);
-  }
+  nav .logo { font-size: 14px; font-weight: 600; letter-spacing: -0.2px; color: var(--text); }
   nav .logo span { color: var(--accent); text-shadow: 0 0 12px rgba(56,189,248,0.6); }
-  nav .links { display: flex; gap: 22px; }
+  nav .links { display: flex; gap: 18px; overflow-x: auto; }
   nav .links a {
     text-decoration: none; color: var(--text-3);
-    font-size: 13px; font-weight: 500;
+    font-size: 13px; font-weight: 500; white-space: nowrap;
     transition: color 0.2s;
   }
   nav .links a:hover { color: var(--accent); }
   @media (max-width: 760px) { nav .links { display: none; } }
 
   .hero {
-    padding: 96px 28px 60px;
+    padding: 72px 20px 44px;
     text-align: center;
-    position: relative;
     background:
       radial-gradient(ellipse 60% 40% at 50% -10%, rgba(56,189,248,0.22), transparent),
       linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px),
@@ -89,20 +85,20 @@
   }
   .hero .kicker {
     display: inline-block;
-    font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
+    font-size: 10.5px; font-weight: 500; letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--accent);
     border: 1px solid rgba(56,189,248,0.4);
     background: rgba(56,189,248,0.08);
     padding: 6px 16px; border-radius: 999px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .hero h1 {
-    font-size: clamp(32px, 5.5vw, 50px);
+    font-size: clamp(28px, 7vw, 50px);
     font-weight: 600;
-    letter-spacing: -1.8px;
-    line-height: 1.1;
-    margin-bottom: 16px;
+    letter-spacing: -1.6px;
+    line-height: 1.12;
+    margin-bottom: 14px;
     color: var(--text);
   }
   .hero h1 em {
@@ -111,31 +107,31 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .hero p {
-    color: var(--text-3); font-size: 15px; font-weight: 300;
+    color: var(--text-3); font-size: 14px; font-weight: 300;
     max-width: 540px; margin: 0 auto; line-height: 1.8;
   }
-  .hero .meta { margin-top: 32px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .hero .meta { margin-top: 26px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
   .hero .meta .pill {
-    font-size: 12px; font-weight: 500; color: var(--text-3);
+    font-size: 11.5px; font-weight: 500; color: var(--text-3);
     border: 1px solid var(--border);
     background: var(--surface);
-    padding: 6px 14px; border-radius: 999px;
+    padding: 5px 12px; border-radius: 999px;
   }
 
   main {
     max-width: 1320px; margin: 0 auto;
-    padding: 60px 28px 84px;
+    padding: 40px 16px 64px;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    gap: 28px;
+    gap: 24px 28px;
     align-items: start;
   }
   @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
   .col { min-width: 0; }
   .full { grid-column: 1 / -1; }
-  section { margin-bottom: 52px; }
+  section { margin-bottom: 44px; }
   section:last-child { margin-bottom: 0; }
-  .sec-head { margin-bottom: 24px; }
+  .sec-head { margin-bottom: 20px; }
   .sec-head .no {
     font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -143,8 +139,8 @@
     margin-bottom: 6px;
   }
   .sec-head h2 {
-    font-size: 25px; font-weight: 600;
-    letter-spacing: -0.7px; line-height: 1.2;
+    font-size: 22px; font-weight: 600;
+    letter-spacing: -0.6px; line-height: 1.2;
     color: var(--text);
   }
 
@@ -153,8 +149,8 @@
     border: 1px solid var(--border-soft);
     border-top: 2px solid var(--acc);
     border-radius: var(--radius);
-    padding: 20px 22px;
-    margin-bottom: 14px;
+    padding: 16px 16px;
+    margin-bottom: 12px;
     transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
   }
   .card:hover {
@@ -162,24 +158,24 @@
     border-color: rgba(56,189,248,0.35);
     box-shadow: var(--glow);
   }
-  .card-title { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .card-title .num {
     background: rgba(56,189,248,0.10);
     color: var(--acc);
     border: 1px solid rgba(56,189,248,0.35);
-    font-size: 11.5px; font-weight: 600;
-    min-width: 28px; height: 28px; border-radius: 8px;
+    font-size: 11px; font-weight: 600;
+    min-width: 26px; height: 26px; border-radius: 8px;
     display: inline-flex; align-items: center; justify-content: center;
     flex: none;
   }
-  .card-title h3 { font-size: 15.5px; font-weight: 600; letter-spacing: -0.2px; }
+  .card-title h3 { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
 
-  .row { margin: 9px 0; font-size: 14.5px; color: var(--text-2); }
+  .row { margin: 8px 0; font-size: 14px; color: var(--text-2); }
   .tag {
     display: inline-block;
     font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
     text-transform: uppercase;
-    border-radius: 5px; padding: 2px 8px; margin-right: 9px;
+    border-radius: 5px; padding: 2px 8px; margin-right: 8px;
     vertical-align: 2px;
   }
   .tag.bad { background: rgba(56,189,248,0.12); color: var(--red); }
@@ -188,43 +184,43 @@
 
   code {
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 12.5px;
+    font-size: 12px;
     background: rgba(56,189,248,0.07);
     border: 1px solid rgba(56,189,248,0.15);
     border-radius: 6px;
-    padding: 1px 7px;
+    padding: 1px 6px;
     color: #cfe9ff;
     word-break: break-all;
   }
   .errbox {
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 12px;
+    font-size: 11.5px;
     background: rgba(56,189,248,0.07);
     border: 1px solid rgba(56,189,248,0.28);
     color: var(--red);
     border-radius: 8px;
-    padding: 10px 14px;
-    margin: 10px 0;
+    padding: 9px 12px;
+    margin: 8px 0;
     word-break: break-all;
   }
   .remember {
-    font-size: 13.5px;
+    font-size: 13px;
     background: rgba(45,212,191,0.07);
     border: 1px solid rgba(45,212,191,0.25);
     color: #a7e8e0;
     border-radius: 8px;
-    padding: 10px 14px;
-    margin-top: 12px;
+    padding: 9px 12px;
+    margin-top: 10px;
   }
   .remember::before { content: "记住  "; font-weight: 600; color: var(--green); }
 
-  .qa { padding: 17px 22px; }
-  .qa .q { font-weight: 600; font-size: 15px; margin-bottom: 5px; }
-  .qa .q::before { content: "问"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--acc); background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.3); border-radius: 5px; padding: 1px 7px; margin-right: 9px; vertical-align: 2px; }
-  .qa .a { color: var(--text-2); font-size: 14px; font-weight: 300; }
-  .qa .a::before { content: "答"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--green); background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.28); border-radius: 5px; padding: 1px 7px; margin-right: 9px; vertical-align: 2px; }
+  .qa { padding: 14px 16px; }
+  .qa .q { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+  .qa .q::before { content: "问"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--acc); background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.3); border-radius: 5px; padding: 1px 6px; margin-right: 8px; vertical-align: 2px; }
+  .qa .a { color: var(--text-2); font-size: 13.5px; font-weight: 300; }
+  .qa .a::before { content: "答"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--green); background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.28); border-radius: 5px; padding: 1px 6px; margin-right: 8px; vertical-align: 2px; }
 
-  .skill-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; font-weight: 300; color: var(--text-2); margin: 10px 0; }
+  .skill-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; font-weight: 300; color: var(--text-2); margin: 9px 0; }
   .skill-item .check { color: var(--green); font-weight: 600; flex: none; margin-top: 1px; }
 
   .golden {
@@ -234,23 +230,24 @@
     border: 1px solid rgba(129,140,248,0.3);
     border-top: 2px solid var(--purple);
     border-radius: 14px;
-    padding: 30px 28px;
+    padding: 26px 22px;
   }
-  .golden .big { font-size: 17px; font-weight: 600; margin-bottom: 18px; letter-spacing: -0.3px; }
+  .golden .big { font-size: 16px; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.3px; }
   .golden .big span { color: var(--purple); }
-  .golden p { font-size: 15px; font-weight: 300; margin: 13px 0; color: var(--text-2); }
-  .golden .n { color: var(--purple); font-weight: 600; margin-right: 12px; font-family: "JetBrains Mono", monospace; font-size: 13px; }
+  .golden p { font-size: 14px; font-weight: 300; margin: 12px 0; color: var(--text-2); }
+  .golden .n { color: var(--purple); font-weight: 600; margin-right: 10px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; }
 
-  .cmdtable { width: 100%; border-collapse: collapse; font-size: 14px; }
+  /* 英文命令表：桌面表格 */
+  .cmdtable { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .cmdtable th {
-    text-align: left; font-size: 10.5px; font-weight: 600;
+    text-align: left; font-size: 10px; font-weight: 600;
     letter-spacing: 2px; text-transform: uppercase;
     color: var(--cyan);
-    padding: 12px 16px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--border);
   }
   .cmdtable td {
-    padding: 13px 16px;
+    padding: 11px 12px;
     border-bottom: 1px solid var(--border-soft);
     color: var(--text-2);
     vertical-align: top;
@@ -259,13 +256,48 @@
   .cmdtable tr:hover td { background: var(--surface-2); }
   .cmdtable .en {
     font-family: "JetBrains Mono", monospace;
-    color: var(--cyan); font-weight: 500; font-size: 13px;
+    color: var(--cyan); font-weight: 500; font-size: 12.5px;
     white-space: nowrap;
   }
   .cmdtable .zh { font-weight: 600; color: var(--text); white-space: nowrap; }
-  .cmdtable .eg { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #cfe9ff; }
+  .cmdtable .eg { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: #cfe9ff; }
   .cmdtable tr.new td { background: rgba(129,140,248,0.05); }
   .cmdtable tr.new td.en { color: var(--purple); }
+
+  /* 英文命令表：手机卡片化 */
+  @media (max-width: 720px) {
+    .cmdtable thead { display: none; }
+    .cmdtable, .cmdtable tbody { display: block; }
+    .cmdtable tr {
+      display: block;
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 4px 0;
+    }
+    .cmdtable tr.new { border-color: rgba(129,140,248,0.3); }
+    .cmdtable td {
+      display: block;
+      border: none;
+      padding: 5px 14px;
+    }
+    .cmdtable td.en {
+      padding-top: 12px;
+      font-size: 15px;
+      color: var(--cyan);
+    }
+    .cmdtable tr.new td.en { color: var(--purple); }
+    .cmdtable td.zh { display: block; padding-top: 0; font-size: 14px; }
+    .cmdtable td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 9.5px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-4);
+      margin-bottom: 2px;
+    }
+    .cmdtable td.desc, .cmdtable td.eg { padding-bottom: 8px; }
+  }
 
   .poem-card {
     background:
@@ -274,14 +306,14 @@
     border: 1px solid rgba(74,168,255,0.3);
     border-top: 2px solid var(--gold);
     border-radius: 16px;
-    padding: 36px 34px;
+    padding: 30px 24px;
     text-align: center;
   }
-  .poem-card .line1 { font-size: 23px; font-weight: 500; letter-spacing: -0.2px; margin-bottom: 15px; color: #e8f2ff; }
-  .poem-card .line2 { font-size: 14px; font-weight: 300; color: var(--text-3); }
+  .poem-card .line1 { font-size: 20px; font-weight: 500; letter-spacing: -0.2px; margin-bottom: 14px; color: #e8f2ff; }
+  .poem-card .line2 { font-size: 13px; font-weight: 300; color: var(--text-3); }
   .poem-card .label {
-    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; margin-bottom: 18px;
+    font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 16px;
   }
 
   .ai-card {
@@ -291,20 +323,20 @@
     border: 1px solid rgba(56,189,248,0.3);
     border-top: 2px solid var(--teal);
     border-radius: 16px;
-    padding: 34px 32px;
+    padding: 30px 24px;
     text-align: center;
   }
   .ai-card .label {
-    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--teal); font-weight: 600; margin-bottom: 18px;
+    font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--teal); font-weight: 600; margin-bottom: 16px;
   }
-  .ai-card .ask { font-size: 14px; font-weight: 300; color: var(--text-3); margin-bottom: 8px; }
-  .ai-card .answer { font-size: 21px; font-weight: 500; letter-spacing: -0.2px; color: #e8f2ff; }
+  .ai-card .ask { font-size: 13px; font-weight: 300; color: var(--text-3); margin-bottom: 8px; }
+  .ai-card .answer { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; color: #e8f2ff; }
 
   footer {
     text-align: center; color: var(--text-4);
-    font-size: 12.5px; letter-spacing: 1.5px;
-    padding: 36px 24px 56px;
+    font-size: 12px; letter-spacing: 1.5px;
+    padding: 32px 20px 48px;
     border-top: 1px solid var(--border-soft);
   }
 
@@ -321,10 +353,10 @@
   <div class="inner">
     <div class="logo">学习笔记<span>· AI Agent</span></div>
     <div class="links">
+      <a href="#cmd">英文命令</a>
       <a href="#pits">踩坑记录</a>
       <a href="#qa">问答</a>
       <a href="#skills">技能树</a>
-      <a href="#cmd">英文命令</a>
       <a href="#lesson7">第七课</a>
       <a href="#lesson6">第六课</a>
       <a href="#golden">四句话</a>
@@ -346,11 +378,57 @@
 
 <main>
 
+  <!-- ===== 全宽第一位：英文命令表（亮青蓝） ===== -->
+  <section id="cmd" class="full sec-cmd">
+    <div class="sec-head reveal">
+      <div class="no">Part 01 · English Commands</div>
+      <h2>英文命令对照表（含读音）</h2>
+    </div>
+    <div class="card reveal" style="padding: 12px 14px;">
+      <table class="cmdtable">
+        <tr><th>英文</th><th>中文意思</th><th>具体说明（原理）</th><th>例子</th></tr>
+        <tr><td class="en" data-label="英文">cmd</td><td class="zh" data-label="中文意思">命令</td><td class="desc" data-label="具体说明">打开黑色窗口（命令行）的指令</td><td class="eg" data-label="例子">Win 键 → 输入 cmd → 回车</td></tr>
+        <tr><td class="en" data-label="英文">python</td><td class="zh" data-label="中文意思">蟒蛇</td><td class="desc" data-label="具体说明">进入 Python 程序（编程语言的名字）</td><td class="eg" data-label="例子">python</td></tr>
+        <tr><td class="en" data-label="英文">exit</td><td class="zh" data-label="中文意思">退出</td><td class="desc" data-label="具体说明">离开 Python，回到黑窗口</td><td class="eg" data-label="例子">exit()</td></tr>
+        <tr><td class="en" data-label="英文">print</td><td class="zh" data-label="中文意思">打印、喊话</td><td class="desc" data-label="具体说明">把括号里的内容显示在窗口里；多样东西用英文逗号隔开</td><td class="eg" data-label="例子">print("你好")</td></tr>
+        <tr><td class="en" data-label="英文">input</td><td class="zh" data-label="中文意思">输入</td><td class="desc" data-label="具体说明">程序停下来，显示提示，等你打字，把你打的内容交给程序</td><td class="eg" data-label="例子">name = input("你叫什么名字？")</td></tr>
+        <tr><td class="en" data-label="英文">import</td><td class="zh" data-label="中文意思">导入、拿进来</td><td class="desc" data-label="具体说明">把工具包拿进来用（Python 不自带）</td><td class="eg" data-label="例子">import requests</td></tr>
+        <tr><td class="en" data-label="英文">requests</td><td class="zh" data-label="中文意思">上网工具包</td><td class="desc" data-label="具体说明">专门管"程序上网"的工具箱（读作：瑞克外斯特）</td><td class="eg" data-label="例子">import requests</td></tr>
+        <tr><td class="en" data-label="英文">get</td><td class="zh" data-label="中文意思">取、拿</td><td class="desc" data-label="具体说明">HTTP 请求方法之一（获取）：去网址把数据取回来</td><td class="eg" data-label="例子">requests.get("网址")</td></tr>
+        <tr class="new"><td class="en" data-label="英文">post</td><td class="zh" data-label="中文意思">提交</td><td class="desc" data-label="具体说明">HTTP 请求方法之一（提交）：把数据送给服务器，服务器处理完返回结果。GET=取，POST=送</td><td class="eg" data-label="例子">requests.post(url, json=data)</td></tr>
+        <tr><td class="en" data-label="英文">. （点）</td><td class="zh" data-label="中文意思">的</td><td class="desc" data-label="具体说明">从工具箱/盒子里拿：requests.get = requests 里的 get</td><td class="eg" data-label="例子">r.text = r 的文字内容</td></tr>
+        <tr><td class="en" data-label="英文">text</td><td class="zh" data-label="中文意思">文字内容</td><td class="desc" data-label="具体说明">r.text = 取回来的原始文字（JSON 长这样）</td><td class="eg" data-label="例子">r.text</td></tr>
+        <tr><td class="en" data-label="英文">json</td><td class="zh" data-label="中文意思">数据格式</td><td class="desc" data-label="具体说明">程序之间传数据的通用格式（读作：杰森）；r.json() 把它整理成字典</td><td class="eg" data-label="例子">poem = r.json()</td></tr>
+        <tr><td class="en" data-label="英文">url</td><td class="zh" data-label="中文意思">网址</td><td class="desc" data-label="具体说明">网站的地址，https:// + 地址才算完整</td><td class="eg" data-label="例子">https://v1.jinrishici.com/all.json</td></tr>
+        <tr><td class="en" data-label="英文">https://</td><td class="zh" data-label="中文意思">协议头</td><td class="desc" data-label="具体说明">网址的"门牌前缀"，告诉程序用什么方式去取</td><td class="eg" data-label="例子">https://...</td></tr>
+        <tr class="new"><td class="en" data-label="英文">localhost</td><td class="zh" data-label="中文意思">本机</td><td class="desc" data-label="具体说明">回环地址，指"当前这台电脑"。localhost:11434 = 本机的 11434 端口</td><td class="eg" data-label="例子">http://localhost:11434</td></tr>
+        <tr class="new"><td class="en" data-label="英文">port</td><td class="zh" data-label="中文意思">端口</td><td class="desc" data-label="具体说明">服务监听的"门牌号"（11434）。一台电脑可有多个服务，靠端口区分</td><td class="eg" data-label="例子">:11434</td></tr>
+        <tr class="new"><td class="en" data-label="英文">api</td><td class="zh" data-label="中文意思">接口</td><td class="desc" data-label="具体说明">Application Programming Interface，应用程序编程接口。程序调用的功能入口</td><td class="eg" data-label="例子">/api/chat</td></tr>
+        <tr class="new"><td class="en" data-label="英文">chat</td><td class="zh" data-label="中文意思">聊天</td><td class="desc" data-label="具体说明">接口路径里表示"对话功能"。/api/chat = 对话接口入口</td><td class="eg" data-label="例子">.../api/chat</td></tr>
+        <tr class="new"><td class="en" data-label="英文">stream</td><td class="zh" data-label="中文意思">流</td><td class="desc" data-label="具体说明">输出方式：True=流式（边生成边发，打字机效果）；False=一次性返回完整回答</td><td class="eg" data-label="例子">"stream": False</td></tr>
+        <tr class="new"><td class="en" data-label="英文">message</td><td class="zh" data-label="中文意思">消息</td><td class="desc" data-label="具体说明">对话中的一条消息。响应里 message = AI 回复的消息</td><td class="eg" data-label="例子">r.json()["message"]</td></tr>
+        <tr class="new"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">消息里的文字内容。请求里 user.content=你问的；响应里 message.content=AI 答的</td><td class="eg" data-label="例子">["content"]</td></tr>
+        <tr class="new"><td class="en" data-label="英文">role</td><td class="zh" data-label="中文意思">角色</td><td class="desc" data-label="具体说明">谁在说话：user=用户，assistant=AI 助手</td><td class="eg" data-label="例子">"role": "user"</td></tr>
+        <tr class="new"><td class="en" data-label="英文">user</td><td class="zh" data-label="中文意思">用户</td><td class="desc" data-label="具体说明">消息角色之一：用户（你）说的话</td><td class="eg" data-label="例子">"role": "user"</td></tr>
+        <tr class="new"><td class="en" data-label="英文">assistant</td><td class="zh" data-label="中文意思">助手</td><td class="desc" data-label="具体说明">消息角色之一：AI 助手说的话</td><td class="eg" data-label="例子">"role": "assistant"</td></tr>
+        <tr><td class="en" data-label="英文">if</td><td class="zh" data-label="中文意思">如果</td><td class="desc" data-label="具体说明">条件成立就执行下面的"小弟"（要缩进），结尾必须有冒号</td><td class="eg" data-label="例子">if name == "baba":</td></tr>
+        <tr><td class="en" data-label="英文">else</td><td class="zh" data-label="中文意思">否则</td><td class="desc" data-label="具体说明">if 条件不成立时，执行 else 下面的"小弟"</td><td class="eg" data-label="例子">else:</td></tr>
+        <tr><td class="en" data-label="英文">==</td><td class="zh" data-label="中文意思">是不是</td><td class="desc" data-label="具体说明">两个等号 = 问"两边是不是一样"（一个 = 是装东西）</td><td class="eg" data-label="例子">name == "baba"</td></tr>
+        <tr><td class="en" data-label="英文">ren</td><td class="zh" data-label="中文意思">改名</td><td class="desc" data-label="具体说明">命令行改文件名，旧名字和新名字之间要有空格</td><td class="eg" data-label="例子">ren myfirst.py nihao.py</td></tr>
+        <tr><td class="en" data-label="英文">notepad</td><td class="zh" data-label="中文意思">记事本</td><td class="desc" data-label="具体说明">命令行打开记事本，后面跟文件名就能建代码文件</td><td class="eg" data-label="例子">notepad quci.py</td></tr>
+        <tr><td class="en" data-label="英文">author</td><td class="zh" data-label="中文意思">作者</td><td class="desc" data-label="具体说明">JSON 标签：作者（第六课）</td><td class="eg" data-label="例子">poem["author"]</td></tr>
+        <tr><td class="en" data-label="英文">origin</td><td class="zh" data-label="中文意思">出处</td><td class="desc" data-label="具体说明">JSON 标签：诗名（不是 prigin！）</td><td class="eg" data-label="例子">poem["origin"]</td></tr>
+        <tr><td class="en" data-label="英文">category</td><td class="zh" data-label="中文意思">分类</td><td class="desc" data-label="具体说明">JSON 标签：分类</td><td class="eg" data-label="例子">poem["category"]</td></tr>
+      </table>
+      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
+    </div>
+  </section>
+
   <!-- ===== 左栏：踩坑（电光蓝） ===== -->
   <div class="col">
     <section id="pits" class="sec-pits">
       <div class="sec-head reveal">
-        <div class="no">Part 01 · Pitfalls</div>
+        <div class="no">Part 02 · Pitfalls</div>
         <h2>我踩过的坑</h2>
       </div>
 
@@ -477,7 +555,7 @@
   <div class="col">
     <section id="qa" class="sec-qa">
       <div class="sec-head reveal">
-        <div class="no">Part 02 · Questions</div>
+        <div class="no">Part 03 · Questions</div>
         <h2>我问过的问题</h2>
       </div>
 
@@ -565,7 +643,7 @@
 
     <section id="skills" class="sec-skills">
       <div class="sec-head reveal">
-        <div class="no">Part 03 · Skills</div>
+        <div class="no">Part 04 · Skills</div>
         <h2>技能树</h2>
       </div>
       <div class="card reveal">
@@ -588,7 +666,7 @@
 
     <section id="golden" class="sec-golden">
       <div class="sec-head reveal">
-        <div class="no">Part 04 · Principles</div>
+        <div class="no">Part 05 · Principles</div>
         <h2>永远记住的四句话</h2>
       </div>
       <div class="card golden reveal">
@@ -600,52 +678,6 @@
       </div>
     </section>
   </div>
-
-  <!-- ===== 全宽：英文命令表（亮青蓝） ===== -->
-  <section id="cmd" class="full sec-cmd">
-    <div class="sec-head reveal">
-      <div class="no">Part 05 · English Commands</div>
-      <h2>英文命令对照表（含读音）</h2>
-    </div>
-    <div class="card reveal" style="padding: 14px 16px;">
-      <table class="cmdtable">
-        <tr><th>英文</th><th>中文意思</th><th>具体说明（原理）</th><th>例子</th></tr>
-        <tr><td class="en">cmd</td><td class="zh">命令</td><td class="desc">打开黑色窗口（命令行）的指令</td><td class="eg">Win 键 → 输入 cmd → 回车</td></tr>
-        <tr><td class="en">python</td><td class="zh">蟒蛇</td><td class="desc">进入 Python 程序（编程语言的名字）</td><td class="eg">python</td></tr>
-        <tr><td class="en">exit</td><td class="zh">退出</td><td class="desc">离开 Python，回到黑窗口</td><td class="eg">exit()</td></tr>
-        <tr><td class="en">print</td><td class="zh">打印、喊话</td><td class="desc">把括号里的内容显示在窗口里；多样东西用英文逗号隔开</td><td class="eg">print("你好")</td></tr>
-        <tr><td class="en">input</td><td class="zh">输入</td><td class="desc">程序停下来，显示提示，等你打字，把你打的内容交给程序</td><td class="eg">name = input("你叫什么名字？")</td></tr>
-        <tr><td class="en">import</td><td class="zh">导入、拿进来</td><td class="desc">把工具包拿进来用（Python 不自带）</td><td class="eg">import requests</td></tr>
-        <tr><td class="en">requests</td><td class="zh">上网工具包</td><td class="desc">专门管"程序上网"的工具箱（读作：瑞克外斯特）</td><td class="eg">import requests</td></tr>
-        <tr><td class="en">get</td><td class="zh">取、拿</td><td class="desc">HTTP 请求方法之一（获取）：去网址把数据取回来</td><td class="eg">requests.get("网址")</td></tr>
-        <tr class="new"><td class="en">post</td><td class="zh">提交</td><td class="desc">HTTP 请求方法之一（提交）：把数据送给服务器，服务器处理完返回结果。GET=取，POST=送</td><td class="eg">requests.post(url, json=data)</td></tr>
-        <tr><td class="en">. （点）</td><td class="zh">的</td><td class="desc">从工具箱/盒子里拿：requests.get = requests 里的 get</td><td class="eg">r.text = r 的文字内容</td></tr>
-        <tr><td class="en">text</td><td class="zh">文字内容</td><td class="desc">r.text = 取回来的原始文字（JSON 长这样）</td><td class="eg">r.text</td></tr>
-        <tr><td class="en">json</td><td class="zh">数据格式</td><td class="desc">程序之间传数据的通用格式（读作：杰森）；r.json() 把它整理成字典</td><td class="eg">poem = r.json()</td></tr>
-        <tr><td class="en">url</td><td class="zh">网址</td><td class="desc">网站的地址，https:// + 地址才算完整</td><td class="eg">https://v1.jinrishici.com/all.json</td></tr>
-        <tr><td class="en">https://</td><td class="zh">协议头</td><td class="desc">网址的"门牌前缀"，告诉程序用什么方式去取</td><td class="eg">https://...</td></tr>
-        <tr class="new"><td class="en">localhost</td><td class="zh">本机</td><td class="desc">回环地址，指"当前这台电脑"。localhost:11434 = 本机的 11434 端口</td><td class="eg">http://localhost:11434</td></tr>
-        <tr class="new"><td class="en">port</td><td class="zh">端口</td><td class="desc">服务监听的"门牌号"（11434）。一台电脑可有多个服务，靠端口区分</td><td class="eg">:11434</td></tr>
-        <tr class="new"><td class="en">api</td><td class="zh">接口</td><td class="desc">Application Programming Interface，应用程序编程接口。程序调用的功能入口</td><td class="eg">/api/chat</td></tr>
-        <tr class="new"><td class="en">chat</td><td class="zh">聊天</td><td class="desc">接口路径里表示"对话功能"。/api/chat = 对话接口入口</td><td class="eg">.../api/chat</td></tr>
-        <tr class="new"><td class="en">stream</td><td class="zh">流</td><td class="desc">输出方式：True=流式（边生成边发，打字机效果）；False=一次性返回完整回答</td><td class="eg">"stream": False</td></tr>
-        <tr class="new"><td class="en">message</td><td class="zh">消息</td><td class="desc">对话中的一条消息。响应里 message = AI 回复的消息</td><td class="eg">r.json()["message"]</td></tr>
-        <tr class="new"><td class="en">content</td><td class="zh">内容</td><td class="desc">消息里的文字内容。请求里 user.content=你问的；响应里 message.content=AI 答的</td><td class="eg">["content"]</td></tr>
-        <tr class="new"><td class="en">role</td><td class="zh">角色</td><td class="desc">谁在说话：user=用户，assistant=AI 助手</td><td class="eg">"role": "user"</td></tr>
-        <tr class="new"><td class="en">user</td><td class="zh">用户</td><td class="desc">消息角色之一：用户（你）说的话</td><td class="eg">"role": "user"</td></tr>
-        <tr class="new"><td class="en">assistant</td><td class="zh">助手</td><td class="desc">消息角色之一：AI 助手说的话</td><td class="eg">"role": "assistant"</td></tr>
-        <tr><td class="en">if</td><td class="zh">如果</td><td class="desc">条件成立就执行下面的"小弟"（要缩进），结尾必须有冒号</td><td class="eg">if name == "baba":</td></tr>
-        <tr><td class="en">else</td><td class="zh">否则</td><td class="desc">if 条件不成立时，执行 else 下面的"小弟"</td><td class="eg">else:</td></tr>
-        <tr><td class="en">==</td><td class="zh">是不是</td><td class="desc">两个等号 = 问"两边是不是一样"（一个 = 是装东西）</td><td class="eg">name == "baba"</td></tr>
-        <tr><td class="en">ren</td><td class="zh">改名</td><td class="desc">命令行改文件名，旧名字和新名字之间要有空格</td><td class="eg">ren myfirst.py nihao.py</td></tr>
-        <tr><td class="en">notepad</td><td class="zh">记事本</td><td class="desc">命令行打开记事本，后面跟文件名就能建代码文件</td><td class="eg">notepad quci.py</td></tr>
-        <tr><td class="en">author</td><td class="zh">作者</td><td class="desc">JSON 标签：作者（第六课）</td><td class="eg">poem["author"]</td></tr>
-        <tr><td class="en">origin</td><td class="zh">出处</td><td class="desc">JSON 标签：诗名（不是 prigin！）</td><td class="eg">poem["origin"]</td></tr>
-        <tr><td class="en">category</td><td class="zh">分类</td><td class="desc">JSON 标签：分类</td><td class="eg">poem["category"]</td></tr>
-      </table>
-      <div class="remember" style="margin-top:14px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
-    </div>
-  </section>
 
   <!-- ===== 全宽：第七课（电光蓝） ===== -->
   <section id="lesson7" class="full sec-l7">
