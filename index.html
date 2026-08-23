@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的 AI 学习笔记 · 第一课到第七课</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #070b12;
+    --bg-2: #0a1019;
+    --surface: rgba(255,255,255,0.03);
+    --surface-2: rgba(56,189,248,0.06);
+    --border: rgba(96,165,250,0.18);
+    --border-soft: rgba(96,165,250,0.10);
+    --text: #e6edf3;
+    --text-2: #aab8c8;
+    --text-3: #6e7f92;
+    --text-4: #48566a;
+    --red: #38bdf8;
+    --orange: #7dd3fc;
+    --green: #2dd4bf;
+    --blue: #60a5fa;
+    --cyan: #22d3ee;
+    --purple: #818cf8;
+    --gold: #4aa8ff;
+    --teal: #38bdf8;
+    --accent: #38bdf8;
+    --radius: 10px;
+    --glow: 0 0 24px rgba(56,189,248,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv01", "ss03";
+  }
+  ::selection { background: rgba(56,189,248,0.3); }
+
+  .sec-pits  { --acc: var(--red); }
+  .sec-qa    { --acc: var(--blue); }
+  .sec-skills{ --acc: var(--green); }
+  .sec-golden{ --acc: var(--purple); }
+  .sec-cmd   { --acc: var(--cyan); }
+  .sec-l6    { --acc: var(--gold); }
+  .sec-l7    { --acc: var(--teal); }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(7,11,18,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  nav .inner {
+    max-width: 1320px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+  }
+  nav .logo {
+    font-size: 14px; font-weight: 600; letter-spacing: -0.2px;
+    color: var(--text);
+  }
+  nav .logo span { color: var(--accent); text-shadow: 0 0 12px rgba(56,189,248,0.6); }
+  nav .links { display: flex; gap: 22px; }
+  nav .links a {
+    text-decoration: none; color: var(--text-3);
+    font-size: 13px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav .links a:hover { color: var(--accent); }
+  @media (max-width: 760px) { nav .links { display: none; } }
+
+  .hero {
+    padding: 96px 28px 60px;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% -10%, rgba(56,189,248,0.22), transparent),
+      linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px),
+      var(--bg);
+    background-size: auto, 36px 36px, 36px 36px, auto;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .hero .kicker {
+    display: inline-block;
+    font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.4);
+    background: rgba(56,189,248,0.08);
+    padding: 6px 16px; border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5.5vw, 50px);
+    font-weight: 600;
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #38bdf8, #60a5fa, #22d3ee);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p {
+    color: var(--text-3); font-size: 15px; font-weight: 300;
+    max-width: 540px; margin: 0 auto; line-height: 1.8;
+  }
+  .hero .meta { margin-top: 32px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .hero .meta .pill {
+    font-size: 12px; font-weight: 500; color: var(--text-3);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 6px 14px; border-radius: 999px;
+  }
+
+  main {
+    max-width: 1320px; margin: 0 auto;
+    padding: 60px 28px 84px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+  .col { min-width: 0; }
+  .full { grid-column: 1 / -1; }
+  section { margin-bottom: 52px; }
+  section:last-child { margin-bottom: 0; }
+  .sec-head { margin-bottom: 24px; }
+  .sec-head .no {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--acc);
+    margin-bottom: 6px;
+  }
+  .sec-head h2 {
+    font-size: 25px; font-weight: 600;
+    letter-spacing: -0.7px; line-height: 1.2;
+    color: var(--text);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-top: 2px solid var(--acc);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .card:hover {
+    background: var(--surface-2);
+    border-color: rgba(56,189,248,0.35);
+    box-shadow: var(--glow);
+  }
+  .card-title { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .card-title .num {
+    background: rgba(56,189,248,0.10);
+    color: var(--acc);
+    border: 1px solid rgba(56,189,248,0.35);
+    font-size: 11.5px; font-weight: 600;
+    min-width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+  .card-title h3 { font-size: 15.5px; font-weight: 600; letter-spacing: -0.2px; }
+
+  .row { margin: 9px 0; font-size: 14.5px; color: var(--text-2); }
+  .tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 5px; padding: 2px 8px; margin-right: 9px;
+    vertical-align: 2px;
+  }
+  .tag.bad { background: rgba(56,189,248,0.12); color: var(--red); }
+  .tag.warn { background: rgba(125,211,252,0.10); color: var(--orange); }
+  .tag.good { background: rgba(45,212,191,0.12); color: var(--green); }
+
+  code {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    background: rgba(56,189,248,0.07);
+    border: 1px solid rgba(56,189,248,0.15);
+    border-radius: 6px;
+    padding: 1px 7px;
+    color: #cfe9ff;
+    word-break: break-all;
+  }
+  .errbox {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    background: rgba(56,189,248,0.07);
+    border: 1px solid rgba(56,189,248,0.28);
+    color: var(--red);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    word-break: break-all;
+  }
+  .remember {
+    font-size: 13.5px;
+    background: rgba(45,212,191,0.07);
+    border: 1px solid rgba(45,212,191,0.25);
+    color: #a7e8e0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+  }
+  .remember::before { content: "记住  "; font-weight: 600; color: var(--green); }
+
+  .qa { padding: 17px 22px; }
+  .qa .q { font-weight: 600; font-size: 15px; margin-bottom: 5px; }
+  .qa .q::before { content: "问"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--acc); background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.3); border-radius: 5px; padding: 1px 7px; margin-right: 9px; vertical-align: 2px; }
+  .qa .a { color: var(--text-2); font-size: 14px; font-weight: 300; }
+  .qa .a::before { content: "答"; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--green); background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.28); border-radius: 5px; padding: 1px 7px; margin-right: 9px; vertical-align: 2px; }
+
+  .skill-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; font-weight: 300; color: var(--text-2); margin: 10px 0; }
+  .skill-item .check { color: var(--green); font-weight: 600; flex: none; margin-top: 1px; }
+
+  .golden {
+    background:
+      radial-gradient(ellipse 90% 120% at 50% -30%, rgba(129,140,248,0.18), transparent),
+      linear-gradient(160deg, #0d1220, #0a0e17);
+    border: 1px solid rgba(129,140,248,0.3);
+    border-top: 2px solid var(--purple);
+    border-radius: 14px;
+    padding: 30px 28px;
+  }
+  .golden .big { font-size: 17px; font-weight: 600; margin-bottom: 18px; letter-spacing: -0.3px; }
+  .golden .big span { color: var(--purple); }
+  .golden p { font-size: 15px; font-weight: 300; margin: 13px 0; color: var(--text-2); }
+  .golden .n { color: var(--purple); font-weight: 600; margin-right: 12px; font-family: "JetBrains Mono", monospace; font-size: 13px; }
+
+  .cmdtable { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cmdtable th {
+    text-align: left; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--cyan);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cmdtable td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-2);
+    vertical-align: top;
+  }
+  .cmdtable tr:last-child td { border-bottom: none; }
+  .cmdtable tr:hover td { background: var(--surface-2); }
+  .cmdtable .en {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--cyan); font-weight: 500; font-size: 13px;
+    white-space: nowrap;
+  }
+  .cmdtable .zh { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .cmdtable .eg { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #cfe9ff; }
+  .cmdtable tr.new td { background: rgba(129,140,248,0.05); }
+  .cmdtable tr.new td.en { color: var(--purple); }
+
+  .poem-card {
+    background:
+      radial-gradient(ellipse 80% 100% at 20% -20%, rgba(74,168,255,0.16), transparent),
+      linear-gradient(160deg, #0c1420, #090e16);
+    border: 1px solid rgba(74,168,255,0.3);
+    border-top: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 36px 34px;
+    text-align: center;
+  }
+  .poem-card .line1 { font-size: 23px; font-weight: 500; letter-spacing: -0.2px; margin-bottom: 15px; color: #e8f2ff; }
+  .poem-card .line2 { font-size: 14px; font-weight: 300; color: var(--text-3); }
+  .poem-card .label {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 18px;
+  }
+
+  .ai-card {
+    background:
+      radial-gradient(ellipse 80% 100% at 20% -20%, rgba(56,189,248,0.18), transparent),
+      linear-gradient(160deg, #0d1220, #0a0e17);
+    border: 1px solid rgba(56,189,248,0.3);
+    border-top: 2px solid var(--teal);
+    border-radius: 16px;
+    padding: 34px 32px;
+    text-align: center;
+  }
+  .ai-card .label {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--teal); font-weight: 600; margin-bottom: 18px;
+  }
+  .ai-card .ask { font-size: 14px; font-weight: 300; color: var(--text-3); margin-bottom: 8px; }
+  .ai-card .answer { font-size: 21px; font-weight: 500; letter-spacing: -0.2px; color: #e8f2ff; }
+
+  footer {
+    text-align: center; color: var(--text-4);
+    font-size: 12.5px; letter-spacing: 1.5px;
+    padding: 36px 24px 56px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo">学习笔记<span>· AI Agent</span></div>
+    <div class="links">
+      <a href="#pits">踩坑记录</a>
+      <a href="#qa">问答</a>
+      <a href="#skills">技能树</a>
+      <a href="#cmd">英文命令</a>
+      <a href="#lesson7">第七课</a>
+      <a href="#lesson6">第六课</a>
+      <a href="#golden">四句话</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="kicker">Day 01 · My AI Learning Journal</div>
+  <h1>第一课到第七课<br><em>从零到程序驱动 AI</em></h1>
+  <p>从完全零基础，到写出会判断、会联网、会调用 AI 的程序。每一步踩过的坑，都是最好的老师。</p>
+  <div class="meta">
+    <span class="pill">2026-08-20 开始</span>
+    <span class="pill">7 课完成</span>
+    <span class="pill">程序已联网</span>
+    <span class="pill">已驱动本地 AI</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== 左栏：踩坑（电光蓝） ===== -->
+  <div class="col">
+    <section id="pits" class="sec-pits">
+      <div class="sec-head reveal">
+        <div class="no">Part 01 · Pitfalls</div>
+        <h2>我踩过的坑</h2>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">1</span><h3>打出了中文标点</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>print{Hello,Agent！" }</code></div>
+        <div class="errbox">SyntaxError: invalid character '！'</div>
+        <div class="row"><span class="tag warn">原因</span>中文输入法状态下打的标点全是中文的，Python 只认英文标点。</div>
+        <div class="remember">写代码前先把输入法切成"英"（按 Shift）。中文（错）：（）“”！　英文（对）：()""! ,</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">2</span><h3>括号用错形状</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>print[''hello,Agent!''}</code></div>
+        <div class="errbox">SyntaxError: invalid syntax</div>
+        <div class="remember">print 后面必须圆括号 ( )，文字用英文双引号 " "，结尾是 )。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">3</span><h3>把两句话挤在一行</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>name="小明"print(name)</code></div>
+        <div class="errbox">SyntaxError: invalid syntax</div>
+        <div class="row"><span class="tag warn">原因</span>Python 一次只听一句话。第六课又踩了一次（两个 print 挤一行）。</div>
+        <div class="remember">一行一个动作。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">4</span><h3>行首多了空格（踩了三次！）</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>  age = 18</code>、<code>  if name=="BABA":</code>、<code>  poem = r.json()</code></div>
+        <div class="errbox">IndentationError: unexpected indent（意外的缩进）</div>
+        <div class="row"><span class="tag warn">原因</span>在 &gt;&gt;&gt; 后面输入，行首绝对不能有空格。复制粘贴时最容易带上前导空格。</div>
+        <div class="remember">顶格打。开头多了空格就按 Backspace 删掉。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">5</span><h3>在 Python 里面又输入 python</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>&gt;&gt;&gt; python</code></div>
+        <div class="errbox">NameError: name 'python' is not defined</div>
+        <div class="remember">&gt;&gt;&gt; = 已在屋里；C:\&gt; = 在屋外。屋外才用 python 进屋。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">6</span><h3>if 的格式不完整</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>ifname==</code></div>
+        <div class="errbox">SyntaxError: invalid syntax</div>
+        <div class="remember"><code>if 空格 name 空格 == 空格 "内容" 冒号</code>，例：<code>if name == "baba":</code></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">7</span><h3>if 结尾忘了冒号</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>if name=="BABA"</code></div>
+        <div class="errbox">SyntaxError: expected ':'</div>
+        <div class="remember">if 那一行的结尾必须有英文冒号 : 。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">8</span><h3>把 &gt;&gt;&gt; 提示符也打进去了</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>&gt;&gt;&gt; &gt;&gt;&gt; if name=="BABA":</code></div>
+        <div class="errbox">SyntaxError: invalid syntax</div>
+        <div class="remember">永远不要输入 &gt;&gt;&gt;，只输入它后面的内容。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">9</span><h3>大小写不一致（踩了两次）</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>"BABA"</code> vs <code>"baba"</code>；<code>R.TEXT</code> vs <code>r.text</code></div>
+        <div class="row"><span class="tag warn">原因</span>Python 区分大小写：baba ≠ BABA，R ≠ r，text ≠ TEXT。</div>
+        <div class="remember">名字必须一字不差（包括大小写）。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">10</span><h3>exit() 拼错</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>exin()</code></div>
+        <div class="errbox">NameError: name 'exin' is not defined. Did you mean: 'exit'?</div>
+        <div class="remember">退出 Python 用 exit()。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">11</span><h3>else 拼错 + 小弟没缩进</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>eise:print(...)</code></div>
+        <div class="remember">else 中间有个 l；if/else 的小弟要缩进。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">12</span><h3>ren 改名漏了空格</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>ren myfirst.pynihao.py</code></div>
+        <div class="remember"><code>ren 旧名字 新名字</code>（中间空格）。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">13</span><h3>第六课新坑：网址丢了 https://</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>requests.get("v1.jinrishici.com/all.json")</code></div>
+        <div class="errbox">MissingSchema: Invalid URL ... No scheme supplied.</div>
+        <div class="row"><span class="tag warn">原因</span>网址要有"门牌前缀" https://，告诉程序用什么方式去取。</div>
+        <div class="remember">网址 = https:// + 地址，一个都不能少。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">14</span><h3>第六课新坑：标签名拼错</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>poem["prigin"]</code>、<code>r.txt</code></div>
+        <div class="errbox">KeyError: 'prigin' / AttributeError: ... no attribute 'txt'</div>
+        <div class="row"><span class="tag warn">原因</span>标签名和属性名都要照着数据里写的一字不差。</div>
+        <div class="remember">名字从哪看？r.text 的原始数据里写着，照着抄。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">15</span><h3>第七课新坑：网址只写了 "Chat"</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>requests.post("Chat", json=data)</code>（连续三次）</div>
+        <div class="errbox">MissingSchema: Invalid URL 'Chat'</div>
+        <div class="row"><span class="tag warn">原因</span>地址不完整：只有入口名，没有完整地址 http://localhost:11434/api/chat。</div>
+        <div class="remember">地址 = 服务地址 + 端口 + 接口路径，缺一不可。别按 ↑ 重复旧命令，出错先按 Ctrl+C 清空。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num" style="color:var(--orange);border-color:rgba(125,211,252,0.35)">＋</span><h3>其他小插曲</h3></div>
+        <div class="row">Ctrl+C 打断 if 块（KeyboardInterrupt）→ 重输就行。</div>
+        <div class="row">提示词和输入连在一起（njsmmzbaba）→ 小瑕疵，不影响。</div>
+        <div class="row">引号里多打了个空格 → requests 会自动清理，但别养成习惯。</div>
+        <div class="row">oilama 拼错 ollama → 差一个字母。手打容易错，能用复制粘贴就别手打。</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== 右栏 ===== -->
+  <div class="col">
+    <section id="qa" class="sec-qa">
+      <div class="sec-head reveal">
+        <div class="no">Part 02 · Questions</div>
+        <h2>我问过的问题</h2>
+      </div>
+
+      <div class="card qa reveal">
+        <div class="q">（ ）" 是这个吗？</div>
+        <div class="a">那是中文括号，Python 要英文的 <code>( )</code> <code>" "</code>。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">怎么打 ( ) " "？</div>
+        <div class="a">输入法切"英"：( = Shift+9，) = Shift+0，" = Shift+回车键左边。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">print 是什么意思？</div>
+        <div class="a">"喊话"。把括号里的内容显示在窗口里。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">name 是什么？</div>
+        <div class="a">盒子的标签（自己起名），重要的是 = 右边装的内容。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">逗号分中文和英文吗？</div>
+        <div class="a">分！写代码一律英文逗号 <code>,</code>。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">print("你好", name) 是什么意思？</div>
+        <div class="a">喊两样：带引号的原样喊，不带引号的去盒子取。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">else 是什么？</div>
+        <div class="a">"否则"。if 不成立时走 else。if 和 else 是一对搭档。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">哪里有第五行？</div>
+        <div class="a">正确代码 5 行，自己写的 4 行是 else 和 print 挤一起了。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">else 和 print 写同一行有影响吗？</div>
+        <div class="a">Python 允许（单行写法），但建议拆开：一行一个动作。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">MYFIRST.py 名字可以改吗？</div>
+        <div class="a">可以，只要 .py 结尾。命令行改名：<code>ren 旧名字 新名字</code>。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">怎么进入 Python？</div>
+        <div class="a">黑窗口输入 <code>python</code> 回车；看到 &gt;&gt;&gt; 就是进来了。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">requests 是什么？</div>
+        <div class="a">上网工具包。import 拿进来，requests.get("网址") 去取数据。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">r 是什么？为什么要 =？</div>
+        <div class="a">r 是你给取回来的数据起的名字；= 是"接住并保存"，不接住数据就丢了。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">为什么用方括号 [ ]？</div>
+        <div class="a">圆括号给命令用，方括号给"从盒子按标签取"用：<code>poem["content"]</code>。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">标签名怎么知道的？</div>
+        <div class="a">不是编的——r.text 的原始数据里写着（content、author、origin…），照着抄。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">requests.post 是什么？</div>
+        <div class="a">HTTP 请求方法 post = 提交。把数据（json=data）提交给服务器，服务器处理完返回结果。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">stream 是什么？</div>
+        <div class="a">"流"。stream: False = 非流式，AI 一次把完整回答返回；True = 流式，边生成边发（打字机效果）。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">Chat 是什么？为什么还要指定？</div>
+        <div class="a">chat = 聊天，是接口的功能入口（/api/chat）。data 是内容，入口是通道，两者都要。去错窗口办不成事。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">message 和 content 是什么？</div>
+        <div class="a">message = AI 回复的消息，content = 消息里的文字内容。请求里 user.content = 你问的，响应里 message.content = AI 答的。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">请求和响应为什么是两回事？</div>
+        <div class="a">请求（data）= 你说的话；响应（r）= AI 的话。AI 不会把你问的再抄一遍，它只返回自己的回答。</div>
+      </div>
+    </section>
+
+    <section id="skills" class="sec-skills">
+      <div class="sec-head reveal">
+        <div class="no">Part 03 · Skills</div>
+        <h2>技能树</h2>
+      </div>
+      <div class="card reveal">
+        <div class="skill-item"><span class="check">✓</span><span>打开黑窗口：Win 键 → cmd</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>进入 / 退出 Python：python / exit()</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>喊话：print("内容")</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>盒子：name = "小明"</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>算数：+ 加、* 乘</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>问问题：name = input("提示")</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>判断：if / else + 缩进</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>写文件运行：notepad 名.py → python 名.py</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>上网取数据：requests.get("网址")</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>看原始数据：r.text</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>整理成字典：poem = r.json()</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>按标签取值：poem["content"]</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>向 AI 提问：requests.post(地址, json=data)</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>取 AI 回答：r.json()["message"]["content"]</span></div>
+      </div>
+    </section>
+
+    <section id="golden" class="sec-golden">
+      <div class="sec-head reveal">
+        <div class="no">Part 04 · Principles</div>
+        <h2>永远记住的四句话</h2>
+      </div>
+      <div class="card golden reveal">
+        <div class="big"><span>◆</span> 学习心得</div>
+        <p><span class="n">01</span>写代码，所有标点用英文的（括号、引号、逗号、冒号）。</p>
+        <p><span class="n">02</span>一行一个动作；if / else 的小弟要缩进。</p>
+        <p><span class="n">03</span>报错不可怕，报错是 Python 在告诉你哪错了——照着改就行。</p>
+        <p><span class="n">04</span>所有"名字"（变量、标签、属性）都要一字不差、区分大小写。</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== 全宽：英文命令表（亮青蓝） ===== -->
+  <section id="cmd" class="full sec-cmd">
+    <div class="sec-head reveal">
+      <div class="no">Part 05 · English Commands</div>
+      <h2>英文命令对照表（含读音）</h2>
+    </div>
+    <div class="card reveal" style="padding: 14px 16px;">
+      <table class="cmdtable">
+        <tr><th>英文</th><th>中文意思</th><th>具体说明（原理）</th><th>例子</th></tr>
+        <tr><td class="en">cmd</td><td class="zh">命令</td><td class="desc">打开黑色窗口（命令行）的指令</td><td class="eg">Win 键 → 输入 cmd → 回车</td></tr>
+        <tr><td class="en">python</td><td class="zh">蟒蛇</td><td class="desc">进入 Python 程序（编程语言的名字）</td><td class="eg">python</td></tr>
+        <tr><td class="en">exit</td><td class="zh">退出</td><td class="desc">离开 Python，回到黑窗口</td><td class="eg">exit()</td></tr>
+        <tr><td class="en">print</td><td class="zh">打印、喊话</td><td class="desc">把括号里的内容显示在窗口里；多样东西用英文逗号隔开</td><td class="eg">print("你好")</td></tr>
+        <tr><td class="en">input</td><td class="zh">输入</td><td class="desc">程序停下来，显示提示，等你打字，把你打的内容交给程序</td><td class="eg">name = input("你叫什么名字？")</td></tr>
+        <tr><td class="en">import</td><td class="zh">导入、拿进来</td><td class="desc">把工具包拿进来用（Python 不自带）</td><td class="eg">import requests</td></tr>
+        <tr><td class="en">requests</td><td class="zh">上网工具包</td><td class="desc">专门管"程序上网"的工具箱（读作：瑞克外斯特）</td><td class="eg">import requests</td></tr>
+        <tr><td class="en">get</td><td class="zh">取、拿</td><td class="desc">HTTP 请求方法之一（获取）：去网址把数据取回来</td><td class="eg">requests.get("网址")</td></tr>
+        <tr class="new"><td class="en">post</td><td class="zh">提交</td><td class="desc">HTTP 请求方法之一（提交）：把数据送给服务器，服务器处理完返回结果。GET=取，POST=送</td><td class="eg">requests.post(url, json=data)</td></tr>
+        <tr><td class="en">. （点）</td><td class="zh">的</td><td class="desc">从工具箱/盒子里拿：requests.get = requests 里的 get</td><td class="eg">r.text = r 的文字内容</td></tr>
+        <tr><td class="en">text</td><td class="zh">文字内容</td><td class="desc">r.text = 取回来的原始文字（JSON 长这样）</td><td class="eg">r.text</td></tr>
+        <tr><td class="en">json</td><td class="zh">数据格式</td><td class="desc">程序之间传数据的通用格式（读作：杰森）；r.json() 把它整理成字典</td><td class="eg">poem = r.json()</td></tr>
+        <tr><td class="en">url</td><td class="zh">网址</td><td class="desc">网站的地址，https:// + 地址才算完整</td><td class="eg">https://v1.jinrishici.com/all.json</td></tr>
+        <tr><td class="en">https://</td><td class="zh">协议头</td><td class="desc">网址的"门牌前缀"，告诉程序用什么方式去取</td><td class="eg">https://...</td></tr>
+        <tr class="new"><td class="en">localhost</td><td class="zh">本机</td><td class="desc">回环地址，指"当前这台电脑"。localhost:11434 = 本机的 11434 端口</td><td class="eg">http://localhost:11434</td></tr>
+        <tr class="new"><td class="en">port</td><td class="zh">端口</td><td class="desc">服务监听的"门牌号"（11434）。一台电脑可有多个服务，靠端口区分</td><td class="eg">:11434</td></tr>
+        <tr class="new"><td class="en">api</td><td class="zh">接口</td><td class="desc">Application Programming Interface，应用程序编程接口。程序调用的功能入口</td><td class="eg">/api/chat</td></tr>
+        <tr class="new"><td class="en">chat</td><td class="zh">聊天</td><td class="desc">接口路径里表示"对话功能"。/api/chat = 对话接口入口</td><td class="eg">.../api/chat</td></tr>
+        <tr class="new"><td class="en">stream</td><td class="zh">流</td><td class="desc">输出方式：True=流式（边生成边发，打字机效果）；False=一次性返回完整回答</td><td class="eg">"stream": False</td></tr>
+        <tr class="new"><td class="en">message</td><td class="zh">消息</td><td class="desc">对话中的一条消息。响应里 message = AI 回复的消息</td><td class="eg">r.json()["message"]</td></tr>
+        <tr class="new"><td class="en">content</td><td class="zh">内容</td><td class="desc">消息里的文字内容。请求里 user.content=你问的；响应里 message.content=AI 答的</td><td class="eg">["content"]</td></tr>
+        <tr class="new"><td class="en">role</td><td class="zh">角色</td><td class="desc">谁在说话：user=用户，assistant=AI 助手</td><td class="eg">"role": "user"</td></tr>
+        <tr class="new"><td class="en">user</td><td class="zh">用户</td><td class="desc">消息角色之一：用户（你）说的话</td><td class="eg">"role": "user"</td></tr>
+        <tr class="new"><td class="en">assistant</td><td class="zh">助手</td><td class="desc">消息角色之一：AI 助手说的话</td><td class="eg">"role": "assistant"</td></tr>
+        <tr><td class="en">if</td><td class="zh">如果</td><td class="desc">条件成立就执行下面的"小弟"（要缩进），结尾必须有冒号</td><td class="eg">if name == "baba":</td></tr>
+        <tr><td class="en">else</td><td class="zh">否则</td><td class="desc">if 条件不成立时，执行 else 下面的"小弟"</td><td class="eg">else:</td></tr>
+        <tr><td class="en">==</td><td class="zh">是不是</td><td class="desc">两个等号 = 问"两边是不是一样"（一个 = 是装东西）</td><td class="eg">name == "baba"</td></tr>
+        <tr><td class="en">ren</td><td class="zh">改名</td><td class="desc">命令行改文件名，旧名字和新名字之间要有空格</td><td class="eg">ren myfirst.py nihao.py</td></tr>
+        <tr><td class="en">notepad</td><td class="zh">记事本</td><td class="desc">命令行打开记事本，后面跟文件名就能建代码文件</td><td class="eg">notepad quci.py</td></tr>
+        <tr><td class="en">author</td><td class="zh">作者</td><td class="desc">JSON 标签：作者（第六课）</td><td class="eg">poem["author"]</td></tr>
+        <tr><td class="en">origin</td><td class="zh">出处</td><td class="desc">JSON 标签：诗名（不是 prigin！）</td><td class="eg">poem["origin"]</td></tr>
+        <tr><td class="en">category</td><td class="zh">分类</td><td class="desc">JSON 标签：分类</td><td class="eg">poem["category"]</td></tr>
+      </table>
+      <div class="remember" style="margin-top:14px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
+    </div>
+  </section>
+
+  <!-- ===== 全宽：第七课（电光蓝） ===== -->
+  <section id="lesson7" class="full sec-l7">
+    <div class="sec-head reveal">
+      <div class="no">Part 06 · Lesson 7</div>
+      <h2>第七课：程序驱动 AI 对话</h2>
+    </div>
+
+    <div class="card ai-card reveal">
+      <div class="label">程序问 · AI 答</div>
+      <div class="ask">你（user）：你好</div>
+      <div class="answer">AI（assistant）：你好！有什么问题或者需要帮助的吗？</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>四段核心代码（ai.py）</h3></div>
+      <div class="row"><span class="tag good">第1段</span><code>import requests</code> —— 拿进上网工具包</div>
+      <div class="row"><span class="tag good">第2段</span><code>data = {"model": "qwen2.5:7b", "messages": [{"role": "user", "content": "你好"}], "stream": False}</code> —— 打包请求：用哪个模型、问什么、一次说完</div>
+      <div class="row"><span class="tag good">第3段</span><code>r = requests.post("http://localhost:11434/api/chat", json=data)</code> —— 发送 POST 请求，r 接住响应</div>
+      <div class="row"><span class="tag good">第4段</span><code>print(r.json()["message"]["content"])</code> —— 拆响应：message 层 → content 层，打印 AI 的回答</div>
+      <div class="remember">核心概念：请求（data）= 你说的话；响应（r）= AI 的话。两个信封，别混。</div>
+    </div>
+  </section>
+
+  <!-- ===== 全宽：第六课（亮蓝） ===== -->
+  <section id="lesson6" class="full sec-l6">
+    <div class="sec-head reveal">
+      <div class="no">Part 07 · Lesson 6</div>
+      <h2>第六课：程序上网取数据</h2>
+    </div>
+
+    <div class="card poem-card reveal">
+      <div class="label">程序从网上取回的成果</div>
+      <div class="line1">接汉疑星落，依楼似月悬。</div>
+      <div class="line2">—— 卢照邻 《十五夜观灯》</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>这一课的核心链路</h3></div>
+      <div class="row"><span class="tag good">第1步</span><code>import requests</code> —— 拿进上网工具包</div>
+      <div class="row"><span class="tag good">第2步</span><code>r = requests.get("网址")</code> —— 去网址取数据，装进 r</div>
+      <div class="row"><span class="tag good">第3步</span><code>r.text</code> —— 看原始数据（JSON 长这样）</div>
+      <div class="row"><span class="tag good">第4步</span><code>poem = r.json()</code> —— 整理成字典（贴标签的盒子）</div>
+      <div class="row"><span class="tag good">第5步</span><code>poem["content"]</code> —— 按标签取值</div>
+      <div class="remember">JSON 数据自带了标签（content/author/origin…），我们只是"看标签取东西"。</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>MY AI LEARNING JOURNAL · 每天进步一点点</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
