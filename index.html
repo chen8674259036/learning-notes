@@ -921,8 +921,15 @@
       }
     }
     applyFilter();
-    searchInput.addEventListener('input', applyFilter);
-    searchInput.addEventListener('keyup', applyFilter);
+    var composing = false;
+    searchInput.addEventListener('compositionstart', function () { composing = true; });
+    searchInput.addEventListener('compositionend', function () { composing = false; applyFilter(); });
+    searchInput.addEventListener('input', function () {
+      if (!composing) applyFilter();
+    });
+    searchInput.addEventListener('keyup', function () {
+      if (!composing) applyFilter();
+    });
     searchInput.addEventListener('search', applyFilter);
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
