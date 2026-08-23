@@ -264,6 +264,41 @@
   .cmdtable tr.new td { background: rgba(129,140,248,0.05); }
   .cmdtable tr.new td.en { color: var(--purple); }
 
+
+  /* 命令表搜索 UI */
+  .cmd-ui { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  #cmdSearch {
+    flex: 1; min-width: 200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  #cmdSearch:focus { outline: none; border-color: var(--accent); box-shadow: var(--glow); }
+  #cmdSearch::placeholder { color: var(--text-4); }
+  .cmd-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--text); }
+  .chip.active { background: rgba(56,189,248,0.12); border-color: var(--accent); color: var(--accent); }
+  .cmd-empty { text-align: center; color: var(--text-4); padding: 24px 0; font-size: 14px; }
+  @media (max-width: 720px) {
+    .cmd-ui { margin-bottom: 12px; }
+    .chip { padding: 5px 12px; font-size: 12px; }
+  }
+
   /* 英文命令表：手机卡片化 */
   @media (max-width: 720px) {
     .cmdtable thead { display: none; }
@@ -385,41 +420,51 @@
       <h2>英文命令对照表（含读音）</h2>
     </div>
     <div class="card reveal" style="padding: 12px 14px;">
+      <div class="cmd-ui">
+        <input type="text" id="cmdSearch" placeholder="搜索命令（英文或中文）...">
+        <div class="cmd-chips">
+          <button class="chip active" data-cat="all">全部</button>
+          <button class="chip" data-cat="basic">基础命令</button>
+          <button class="chip" data-cat="net">网络命令</button>
+          <button class="chip" data-cat="ai">AI 命令</button>
+          <button class="chip" data-cat="data">数据标签</button>
+        </div>
+      </div>
       <table class="cmdtable">
-        <tr><th>英文</th><th>中文意思</th><th>具体说明（原理）</th><th>例子</th></tr>
-        <tr><td class="en" data-label="英文">cmd</td><td class="zh" data-label="中文意思">命令</td><td class="desc" data-label="具体说明">打开黑色窗口（命令行）的指令</td><td class="eg" data-label="例子">Win 键 → 输入 cmd → 回车</td></tr>
-        <tr><td class="en" data-label="英文">python</td><td class="zh" data-label="中文意思">蟒蛇</td><td class="desc" data-label="具体说明">进入 Python 程序（编程语言的名字）</td><td class="eg" data-label="例子">python</td></tr>
-        <tr><td class="en" data-label="英文">exit</td><td class="zh" data-label="中文意思">退出</td><td class="desc" data-label="具体说明">离开 Python，回到黑窗口</td><td class="eg" data-label="例子">exit()</td></tr>
-        <tr><td class="en" data-label="英文">print</td><td class="zh" data-label="中文意思">打印、喊话</td><td class="desc" data-label="具体说明">把括号里的内容显示在窗口里；多样东西用英文逗号隔开</td><td class="eg" data-label="例子">print("你好")</td></tr>
-        <tr><td class="en" data-label="英文">input</td><td class="zh" data-label="中文意思">输入</td><td class="desc" data-label="具体说明">程序停下来，显示提示，等你打字，把你打的内容交给程序</td><td class="eg" data-label="例子">name = input("你叫什么名字？")</td></tr>
-        <tr><td class="en" data-label="英文">import</td><td class="zh" data-label="中文意思">导入、拿进来</td><td class="desc" data-label="具体说明">把工具包拿进来用（Python 不自带）</td><td class="eg" data-label="例子">import requests</td></tr>
-        <tr><td class="en" data-label="英文">requests</td><td class="zh" data-label="中文意思">上网工具包</td><td class="desc" data-label="具体说明">专门管"程序上网"的工具箱（读作：瑞克外斯特）</td><td class="eg" data-label="例子">import requests</td></tr>
-        <tr><td class="en" data-label="英文">get</td><td class="zh" data-label="中文意思">取、拿</td><td class="desc" data-label="具体说明">HTTP 请求方法之一（获取）：去网址把数据取回来</td><td class="eg" data-label="例子">requests.get("网址")</td></tr>
-        <tr class="new"><td class="en" data-label="英文">post</td><td class="zh" data-label="中文意思">提交</td><td class="desc" data-label="具体说明">HTTP 请求方法之一（提交）：把数据送给服务器，服务器处理完返回结果。GET=取，POST=送</td><td class="eg" data-label="例子">requests.post(url, json=data)</td></tr>
-        <tr><td class="en" data-label="英文">. （点）</td><td class="zh" data-label="中文意思">的</td><td class="desc" data-label="具体说明">从工具箱/盒子里拿：requests.get = requests 里的 get</td><td class="eg" data-label="例子">r.text = r 的文字内容</td></tr>
-        <tr><td class="en" data-label="英文">text</td><td class="zh" data-label="中文意思">文字内容</td><td class="desc" data-label="具体说明">r.text = 取回来的原始文字（JSON 长这样）</td><td class="eg" data-label="例子">r.text</td></tr>
-        <tr><td class="en" data-label="英文">json</td><td class="zh" data-label="中文意思">数据格式</td><td class="desc" data-label="具体说明">程序之间传数据的通用格式（读作：杰森）；r.json() 把它整理成字典</td><td class="eg" data-label="例子">poem = r.json()</td></tr>
-        <tr><td class="en" data-label="英文">url</td><td class="zh" data-label="中文意思">网址</td><td class="desc" data-label="具体说明">网站的地址，https:// + 地址才算完整</td><td class="eg" data-label="例子">https://v1.jinrishici.com/all.json</td></tr>
-        <tr><td class="en" data-label="英文">https://</td><td class="zh" data-label="中文意思">协议头</td><td class="desc" data-label="具体说明">网址的"门牌前缀"，告诉程序用什么方式去取</td><td class="eg" data-label="例子">https://...</td></tr>
-        <tr class="new"><td class="en" data-label="英文">localhost</td><td class="zh" data-label="中文意思">本机</td><td class="desc" data-label="具体说明">回环地址，指"当前这台电脑"。localhost:11434 = 本机的 11434 端口</td><td class="eg" data-label="例子">http://localhost:11434</td></tr>
-        <tr class="new"><td class="en" data-label="英文">port</td><td class="zh" data-label="中文意思">端口</td><td class="desc" data-label="具体说明">服务监听的"门牌号"（11434）。一台电脑可有多个服务，靠端口区分</td><td class="eg" data-label="例子">:11434</td></tr>
-        <tr class="new"><td class="en" data-label="英文">api</td><td class="zh" data-label="中文意思">接口</td><td class="desc" data-label="具体说明">Application Programming Interface，应用程序编程接口。程序调用的功能入口</td><td class="eg" data-label="例子">/api/chat</td></tr>
-        <tr class="new"><td class="en" data-label="英文">chat</td><td class="zh" data-label="中文意思">聊天</td><td class="desc" data-label="具体说明">接口路径里表示"对话功能"。/api/chat = 对话接口入口</td><td class="eg" data-label="例子">.../api/chat</td></tr>
-        <tr class="new"><td class="en" data-label="英文">stream</td><td class="zh" data-label="中文意思">流</td><td class="desc" data-label="具体说明">输出方式：True=流式（边生成边发，打字机效果）；False=一次性返回完整回答</td><td class="eg" data-label="例子">"stream": False</td></tr>
-        <tr class="new"><td class="en" data-label="英文">message</td><td class="zh" data-label="中文意思">消息</td><td class="desc" data-label="具体说明">对话中的一条消息。响应里 message = AI 回复的消息</td><td class="eg" data-label="例子">r.json()["message"]</td></tr>
-        <tr class="new"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">消息里的文字内容。请求里 user.content=你问的；响应里 message.content=AI 答的</td><td class="eg" data-label="例子">["content"]</td></tr>
-        <tr class="new"><td class="en" data-label="英文">role</td><td class="zh" data-label="中文意思">角色</td><td class="desc" data-label="具体说明">谁在说话：user=用户，assistant=AI 助手</td><td class="eg" data-label="例子">"role": "user"</td></tr>
-        <tr class="new"><td class="en" data-label="英文">user</td><td class="zh" data-label="中文意思">用户</td><td class="desc" data-label="具体说明">消息角色之一：用户（你）说的话</td><td class="eg" data-label="例子">"role": "user"</td></tr>
-        <tr class="new"><td class="en" data-label="英文">assistant</td><td class="zh" data-label="中文意思">助手</td><td class="desc" data-label="具体说明">消息角色之一：AI 助手说的话</td><td class="eg" data-label="例子">"role": "assistant"</td></tr>
-        <tr><td class="en" data-label="英文">if</td><td class="zh" data-label="中文意思">如果</td><td class="desc" data-label="具体说明">条件成立就执行下面的"小弟"（要缩进），结尾必须有冒号</td><td class="eg" data-label="例子">if name == "baba":</td></tr>
-        <tr><td class="en" data-label="英文">else</td><td class="zh" data-label="中文意思">否则</td><td class="desc" data-label="具体说明">if 条件不成立时，执行 else 下面的"小弟"</td><td class="eg" data-label="例子">else:</td></tr>
-        <tr><td class="en" data-label="英文">==</td><td class="zh" data-label="中文意思">是不是</td><td class="desc" data-label="具体说明">两个等号 = 问"两边是不是一样"（一个 = 是装东西）</td><td class="eg" data-label="例子">name == "baba"</td></tr>
-        <tr><td class="en" data-label="英文">ren</td><td class="zh" data-label="中文意思">改名</td><td class="desc" data-label="具体说明">命令行改文件名，旧名字和新名字之间要有空格</td><td class="eg" data-label="例子">ren myfirst.py nihao.py</td></tr>
-        <tr><td class="en" data-label="英文">notepad</td><td class="zh" data-label="中文意思">记事本</td><td class="desc" data-label="具体说明">命令行打开记事本，后面跟文件名就能建代码文件</td><td class="eg" data-label="例子">notepad quci.py</td></tr>
-        <tr><td class="en" data-label="英文">author</td><td class="zh" data-label="中文意思">作者</td><td class="desc" data-label="具体说明">JSON 标签：作者（第六课）</td><td class="eg" data-label="例子">poem["author"]</td></tr>
-        <tr><td class="en" data-label="英文">origin</td><td class="zh" data-label="中文意思">出处</td><td class="desc" data-label="具体说明">JSON 标签：诗名（不是 prigin！）</td><td class="eg" data-label="例子">poem["origin"]</td></tr>
-        <tr><td class="en" data-label="英文">category</td><td class="zh" data-label="中文意思">分类</td><td class="desc" data-label="具体说明">JSON 标签：分类</td><td class="eg" data-label="例子">poem["category"]</td></tr>
-      </table>
+        <thead><tr><th>英文</th><th>中文意思</th><th>具体说明（原理）</th><th>例子</th></tr></thead><tbody>
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="net">
+        <tr data-cat="net">
+        <tr class="new" data-cat="net">
+        <tr data-cat="net">
+        <tr data-cat="net">
+        <tr data-cat="net">
+        <tr data-cat="net">
+        <tr data-cat="net">
+        <tr class="new" data-cat="net">
+        <tr class="new" data-cat="net">
+        <tr class="new" data-cat="net">
+        <tr class="new" data-cat="net">
+        <tr class="new" data-cat="ai">
+        <tr class="new" data-cat="ai">
+        <tr class="new" data-cat="ai">
+        <tr class="new" data-cat="ai">
+        <tr class="new" data-cat="ai">
+        <tr class="new" data-cat="ai">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="basic">
+        <tr data-cat="data">
+        <tr data-cat="data">
+        <tr data-cat="data">
+      </tbody></table>
       <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
     </div>
   </section>
@@ -729,6 +774,47 @@
 </main>
 
 <footer>MY AI LEARNING JOURNAL · 每天进步一点点</footer>
+
+
+  // 命令表搜索 + 分类筛选
+  (function () {
+    var searchInput = document.getElementById('cmdSearch');
+    if (!searchInput) return;
+    var chips = document.querySelectorAll('.chip');
+    var activeCat = 'all';
+    function applyFilter() {
+      var q = searchInput.value.trim().toLowerCase();
+      var rows = document.querySelectorAll('.cmdtable tbody tr');
+      var visible = 0;
+      rows.forEach(function (tr) {
+        var cat = tr.getAttribute('data-cat') || 'all';
+        var text = tr.textContent.toLowerCase();
+        var matchCat = activeCat === 'all' || cat === activeCat;
+        var matchQ = !q || text.indexOf(q) !== -1;
+        var show = matchCat && matchQ;
+        tr.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      var empty = document.getElementById('cmdEmpty');
+      if (!empty) {
+        empty = document.createElement('div');
+        empty.id = 'cmdEmpty';
+        empty.className = 'cmd-empty';
+        empty.textContent = '没有找到匹配的命令';
+        document.querySelector('.cmdtable').after(empty);
+      }
+      empty.style.display = visible ? 'none' : 'block';
+    }
+    searchInput.addEventListener('input', applyFilter);
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        activeCat = chip.getAttribute('data-cat');
+        applyFilter();
+      });
+    });
+  })();
 
 <script>
   const io = new IntersectionObserver((entries) => {
