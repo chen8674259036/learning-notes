@@ -792,9 +792,9 @@
       rows.forEach(function (tr) {
         var cat = tr.getAttribute('data-cat') || 'all';
         var text = tr.textContent.toLowerCase();
-        var matchCat = activeCat === 'all' || cat === activeCat;
         var matchQ = !q || text.indexOf(q) !== -1;
-        var show = matchCat && matchQ;
+        var matchCat = activeCat === 'all' || cat === activeCat;
+        var show = q ? matchQ : matchCat;
         tr.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -809,8 +809,8 @@
       empty.style.display = visible ? 'none' : 'block';
     }
     applyFilter();
-    applyFilter();
     searchInput.addEventListener('input', applyFilter);
+    searchInput.addEventListener('keyup', applyFilter);
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
         chips.forEach(function (c) { c.classList.remove('active'); });
