@@ -266,6 +266,18 @@
 
 
 
+  .word-eg {
+    margin-top: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    background: rgba(56,189,248,0.07);
+    border: 1px solid rgba(56,189,248,0.15);
+    border-radius: 6px;
+    padding: 4px 12px;
+    display: inline-block;
+  }
+
   /* 每日一词 */
   .word-card {
     max-width: 1320px;
@@ -461,6 +473,7 @@
   <div class="word-label">每日一词 · 随机记忆</div>
   <div class="word-en" id="wordEn">print</div>
   <div class="word-zh" id="wordZh">打印、喊话 — 把内容显示在窗口里</div>
+  <div class="word-eg" id="wordEg">例：print("你好")</div>
   <button class="word-btn" onclick="showRandomWord()">换一个</button>
 </div>
 
@@ -833,40 +846,43 @@
 
 
 
+<script>
   // 每日一词
   var words = [
-    {en: "print", zh: "打印、喊话", desc: "把括号里的内容显示在窗口里"},
-    {en: "input", zh: "输入", desc: "程序停下来，等你打字，把你打的内容交给程序"},
-    {en: "import", zh: "导入", desc: "把工具包拿进来用"},
-    {en: "requests", zh: "上网工具包", desc: "专门管程序上网的工具箱"},
-    {en: "get", zh: "取", desc: "去网址把数据取回来"},
-    {en: "post", zh: "提交", desc: "把数据送给服务器，服务器处理完返回结果"},
-    {en: "if", zh: "如果", desc: "条件成立就执行下面的小弟"},
-    {en: "else", zh: "否则", desc: "条件不成立时走这一路"},
-    {en: "==", zh: "是不是", desc: "问两边是不是一样"},
-    {en: "json", zh: "数据格式", desc: "程序之间传数据的通用格式"},
-    {en: "text", zh: "文字内容", desc: "r.text = 取回来的原始文字"},
-    {en: "url", zh: "网址", desc: "网站的地址，https:// + 地址才算完整"},
-    {en: "stream", zh: "流", desc: "True=边生成边发；False=一次性返回"},
-    {en: "message", zh: "消息", desc: "AI 回复的那条消息"},
-    {en: "content", zh: "内容", desc: "消息里的文字内容"},
-    {en: "role", zh: "角色", desc: "谁在说话：user=用户，assistant=AI"},
-    {en: "localhost", zh: "本机", desc: "指当前这台电脑"},
-    {en: "port", zh: "端口", desc: "服务监听的号（11434）"},
-    {en: "api", zh: "接口", desc: "程序调用的功能入口"},
-    {en: "chat", zh: "聊天", desc: "对话功能的接口入口"},
-    {en: "exit", zh: "退出", desc: "离开 Python，回到黑窗口"},
-    {en: "notepad", zh: "记事本", desc: "命令行打开记事本写代码"},
-    {en: "ren", zh: "改名", desc: "命令行改文件名"},
-    {en: "cmd", zh: "命令", desc: "打开黑窗口的指令"},
-    {en: "python", zh: "蟒蛇", desc: "进入 Python 程序"},
-    {en: "assistant", zh: "助手", desc: "AI 说话的角色"},
-    {en: "user", zh: "用户", desc: "你说话的角色"}
+    {en: "print", zh: "打印、喊话", desc: "把括号里的内容显示在窗口里", eg: "print(\"你好\")"},
+    {en: "input", zh: "输入", desc: "程序停下来，等你打字，把你打的内容交给程序", eg: "name = input(\"你叫什么名字？\")"},
+    {en: "import", zh: "导入", desc: "把工具包拿进来用", eg: "import requests"},
+    {en: "requests", zh: "上网工具包", desc: "专门管程序上网的工具箱", eg: "import requests"},
+    {en: "get", zh: "取", desc: "去网址把数据取回来", eg: "requests.get(\"网址\")"},
+    {en: "post", zh: "提交", desc: "把数据送给服务器，服务器处理完返回结果", eg: "requests.post(url, json=data)"},
+    {en: "if", zh: "如果", desc: "条件成立就执行下面的小弟", eg: "if name == \"baba\":"},
+    {en: "else", zh: "否则", desc: "条件不成立时走这一路", eg: "else:"},
+    {en: "==", zh: "是不是", desc: "问两边是不是一样", eg: "name == \"baba\""},
+    {en: "json", zh: "数据格式", desc: "程序之间传数据的通用格式", eg: "poem = r.json()"},
+    {en: "text", zh: "文字内容", desc: "r.text = 取回来的原始文字", eg: "r.text"},
+    {en: "url", zh: "网址", desc: "网站的地址，https:// + 地址才算完整", eg: "https://v1.jinrishici.com/all.json"},
+    {en: "stream", zh: "流", desc: "True=边生成边发；False=一次性返回", eg: "\"stream\": False"},
+    {en: "message", zh: "消息", desc: "AI 回复的那条消息", eg: "r.json()[\"message\"]"},
+    {en: "content", zh: "内容", desc: "消息里的文字内容", eg: "[\"content\"]"},
+    {en: "role", zh: "角色", desc: "谁在说话：user=用户，assistant=AI", eg: "\"role\": \"user\""},
+    {en: "localhost", zh: "本机", desc: "指当前这台电脑", eg: "http://localhost:11434"},
+    {en: "port", zh: "端口", desc: "服务监听的号（11434）", eg: ":11434"},
+    {en: "api", zh: "接口", desc: "程序调用的功能入口", eg: "/api/chat"},
+    {en: "chat", zh: "聊天", desc: "对话功能的接口入口", eg: ".../api/chat"},
+    {en: "exit", zh: "退出", desc: "离开 Python，回到黑窗口", eg: "exit()"},
+    {en: "notepad", zh: "记事本", desc: "命令行打开记事本写代码", eg: "notepad quci.py"},
+    {en: "ren", zh: "改名", desc: "命令行改文件名", eg: "ren myfirst.py nihao.py"},
+    {en: "cmd", zh: "命令", desc: "打开黑窗口的指令", eg: "Win 键 → 输入 cmd"},
+    {en: "python", zh: "蟒蛇", desc: "进入 Python 程序", eg: "python"},
+    {en: "assistant", zh: "助手", desc: "AI 说话的角色", eg: "\"role\": \"assistant\""},
+    {en: "user", zh: "用户", desc: "你说话的角色", eg: "\"role\": \"user\""}
   ];
   function showRandomWord() {
     var w = words[Math.floor(Math.random() * words.length)];
     document.getElementById('wordEn').textContent = w.en;
     document.getElementById('wordZh').textContent = w.zh + ' — ' + w.desc;
+    var el = document.getElementById('wordEg');
+    if (el) { el.textContent = '例：' + w.eg; }
   }
   showRandomWord();
 
@@ -908,9 +924,6 @@
     searchInput.addEventListener('input', applyFilter);
     searchInput.addEventListener('keyup', applyFilter);
     searchInput.addEventListener('search', applyFilter);
-    applyFilter();
-    searchInput.addEventListener('input', applyFilter);
-    searchInput.addEventListener('keyup', applyFilter);
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
         chips.forEach(function (c) { c.classList.remove('active'); });
@@ -921,7 +934,7 @@
     });
   })();
 
-<script>
+  // 滚动淡入
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.06 });
