@@ -900,7 +900,12 @@
         for (var i = 0; i < rows.length; i++) {
           var tr = rows[i];
           var cat = tr.getAttribute('data-cat') || 'all';
-          var text = tr.textContent.toLowerCase();
+          var text = '';
+          var enCell = tr.querySelector('.en');
+          if (enCell) text += enCell.textContent + ' ';
+          var zhCell = tr.querySelector('.zh');
+          if (zhCell) text += zhCell.textContent + ' ';
+          text = text.toLowerCase();
           var matchQ = !q || text.indexOf(q) !== -1;
           var matchCat = activeCat === 'all' || cat === activeCat;
           var show = q ? matchQ : matchCat;
