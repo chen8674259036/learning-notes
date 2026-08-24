@@ -532,9 +532,14 @@
         <tr data-cat="data"><td class="en" data-label="英文">origin</td><td class="zh" data-label="中文意思">出处</td><td class="desc" data-label="具体说明">JSON 标签：诗名（不是 prigin！）</td><td class="eg" data-label="例子">poem["origin"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">JSON 标签：内容（第六课取诗用的）</td><td class="eg" data-label="例子">poem["content"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">category</td><td class="zh" data-label="中文意思">分类</td><td class="desc" data-label="具体说明">JSON 标签：分类</td><td class="eg" data-label="例子">poem["category"]</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">tools</td><td class="zh" data-label="中文意思">工具清单</td><td class="desc" data-label="具体说明">Agent 能用的所有"手"的登记表。复数 = 列表，能装多个工具；单个叫 tool</td><td class="eg" data-label="例子">tools: [{name: "get_weather"}]</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">name</td><td class="zh" data-label="中文意思">名字</td><td class="desc" data-label="具体说明">每个工具的唯一标识，调用时靠名字找到对应工具</td><td class="eg" data-label="例子">name: "get_weather"</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">parameters</td><td class="zh" data-label="中文意思">参数</td><td class="desc" data-label="具体说明">工具需要的输入说明（如查天气要"城市"）。string = 格式说明（放文本），不是具体值</td><td class="eg" data-label="例子">parameters: {city: "string"}</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">tool_calls</td><td class="zh" data-label="中文意思">工具调用请求</td><td class="desc" data-label="具体说明">模型发出的"我要用这个工具"的指令，写清调用哪个函数、传什么值</td><td class="eg" data-label="例子">tool_calls: [{function: "get_weather"}]</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">arguments</td><td class="zh" data-label="中文意思">参数值</td><td class="desc" data-label="具体说明">实际填进去的具体值（第二步调用时才填，如"北京"；第一步的 string 只是格式）</td><td class="eg" data-label="例子">arguments: {city: "北京"}</td></tr>
         </tbody>
       </table>
-      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
+      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。第八课新增（李博杰书第1章·工具调用）：tools、name、parameters、tool_calls、arguments。</div>
     </div>
   </section>
 
