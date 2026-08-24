@@ -49,6 +49,7 @@
   .sec-golden{ --acc: var(--purple); }
   .sec-l7    { --acc: var(--teal); }
   .sec-l8    { --acc: #3aa0ff; }
+  .sec-l0    { --acc: var(--green); }
   .sec-l6    { --acc: var(--gold); }
 
   nav {
@@ -490,6 +491,7 @@
       <a href="#pits">踩坑记录</a>
       <a href="#qa">问答</a>
       <a href="#skills">技能树</a>
+      <a href="#lesson0">地基课</a>
       <a href="#lesson8">第八课</a>
       <a href="#lesson7">第七课</a>
       <a href="#lesson6">第六课</a>
@@ -505,6 +507,7 @@
   <div class="meta">
     <span class="pill">2026-08-20 开始</span>
     <span class="pill">8 课完成</span>
+    <span class="pill">地基课：看懂代码</span>
     <span class="pill">程序已联网</span>
     <span class="pill">已驱动本地 AI</span>
   </div>
@@ -577,9 +580,14 @@
         <tr data-cat="data"><td class="en" data-label="英文">origin</td><td class="zh" data-label="中文意思">出处</td><td class="desc" data-label="具体说明">JSON 标签：诗名（不是 prigin！）</td><td class="eg" data-label="例子">poem["origin"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">JSON 标签：内容（第六课取诗用的）</td><td class="eg" data-label="例子">poem["content"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">category</td><td class="zh" data-label="中文意思">分类</td><td class="desc" data-label="具体说明">JSON 标签：分类</td><td class="eg" data-label="例子">poem["category"]</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">client</td><td class="zh" data-label="中文意思">客户端 / 电话</td><td class="desc" data-label="具体说明">连接指令：client = OpenAI(base_url=...) 执行完，client 就是"已拨通的电话"，之后都拿它说话（base_url 是 AI 地址）</td><td class="eg" data-label="例子">client = OpenAI(base_url="...")</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">completions</td><td class="zh" data-label="中文意思">对话补全</td><td class="desc" data-label="具体说明">你一句它补一句：AI 的任务就是把你给的对话"补完"——chat 里的"补全"抽屉</td><td class="eg" data-label="例子">client.chat.completions.create</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">create</td><td class="zh" data-label="中文意思">创建 / 按下键</td><td class="desc" data-label="具体说明">真正执行对话的按钮。前面全是"位置"，create 是"动作"；AI 的回答是现场"创建"出来的，不是仓库里取现成的</td><td class="eg" data-label="例子">.create(model=..., messages=...)</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">response</td><td class="zh" data-label="中文意思">回答盒子</td><td class="desc" data-label="具体说明">create 按下去之后，AI 的回答装进这个盒子（变量名可随便起，如 answer）；要拿文字还得再拆盒子</td><td class="eg" data-label="例子">response = client.chat...</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">messages</td><td class="zh" data-label="中文意思">聊天记录列表</td><td class="desc" data-label="具体说明">复数 = 列表（[ ] 能装多条）！不是单条消息，是整个对话记录：你一句 AI 一句全排里面。AI 读完整个列表才回答——这就是多轮对话的秘密</td><td class="eg" data-label="例子">messages=[{"role":"user","content":"你好"}]</td></tr>
         </tbody>
       </table>
-      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
+      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。地基课新增（看懂代码三张图）：client、completions、create、response、messages。</div>
     </div>
   </section>
 
@@ -861,6 +869,48 @@
     </section>
   </div>
 
+
+  <!-- ===== 全宽：地基课（青绿） ===== -->
+  <section id="lesson0" class="full sec-l0">
+    <div class="sec-head reveal">
+      <div class="no">Part 00 · Lesson 0 · 地基课</div>
+      <h2>地基课：看懂代码的三张图</h2>
+    </div>
+
+    <div class="card ai-card reveal" style="border-top-color:#2dd4bf;">
+      <div class="label" style="color:#2dd4bf;">为什么以前觉得代码像咒语？——因为缺了这三张图</div>
+      <div class="ask">电脑 = 厨房：硬盘是冰箱（文件躺着），内存是案板（要用的搬上来），CPU 是厨师（动手），进程 = 厨师开始做菜，后台 = 闷头做菜不端出来</div>
+      <div class="answer">代码 = 给"很笨但很听话"的助手写的指令单：从上往下一条条执行；缩进 = 谁归谁管。不是咒语，是结构！</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">图1</span><h3>厨房地图：电脑怎么跑起来</h3></div>
+      <div class="row"><span class="tag good">硬盘</span>= 冰箱（文件躺着的地方，C/D/E 盘）</div>
+      <div class="row"><span class="tag good">内存</span>= 案板（要处理的搬上来，空间有限——16G 不够就卡）</div>
+      <div class="row"><span class="tag good">CPU</span>= 厨师（真正动手干活的）</div>
+      <div class="row"><span class="tag good">进程</span>= 厨师开始照菜谱做菜（任务管理器里看到的"活着的程序"）</div>
+      <div class="row"><span class="tag good">后台</span>= 闷头做菜但不端出来（没有窗口，如 Ollama、微信网关）</div>
+      <div class="row"><span class="tag good">命令行</span>= 厨房的传话窗口（双击 = 亲手递菜谱；输入命令 = 隔窗喊话）</div>
+      <div class="remember">双击微信图标 = 把硬盘里的微信搬到内存（案板），CPU 开始干活，任务管理器多一个"活着的"微信进程。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">图2</span><h3>指令单：代码为什么这样写</h3></div>
+      <div class="row"><span class="tag good">顺序</span>从上往下一条条执行——先拨号才能说话，这是逻辑不是规矩</div>
+      <div class="row"><span class="tag good">缩进</span>= 告诉电脑"这几行是上面那行的手下"（if 下雨: 下面缩进的 带伞/穿雨衣 才执行）</div>
+      <div class="row"><span class="tag good">列表</span><code>[ ]</code> 能装多条，复数（messages）= 聊天记录列表，一条条排</div>
+      <div class="remember">代码不是咒语，是按逻辑顺序写的指令单：谁归谁管（缩进）、先做什么后做什么（顺序）。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">图3</span><h3>打电话模型：看懂所有 AI 代码</h3></div>
+      <div class="row"><span class="tag good">第1步</span><code>client = OpenAI(base_url=...)</code> —— 拨号（连接指令）→ 得到一部"电话" client</div>
+      <div class="row"><span class="tag good">第2步</span><code>client.chat.completions.create(...)</code> —— 打开抽屉按按钮：电话 → 聊天 → 对话补全 → 按下发起键</div>
+      <div class="row"><span class="tag good">第3步</span><code>messages=[{"role":"user","content":"你好"}]</code> —— 说出口的话（聊天记录列表，AI 靠 role 分清谁说的）</div>
+      <div class="row"><span class="tag good">第4步</span><code>response</code> —— 听到的回答（AI 现场"创作"的，所以叫 create）</div>
+      <div class="remember">万能钥匙：client(电话) → messages(说的话) → create(按下键) → response(听到的回答)。任何 AI 代码都是这四个角色。</div>
+    </div>
+  </section>
 
   <!-- ===== 全宽：第八课（亮蓝） ===== -->
   <section id="lesson8" class="full sec-l8">
