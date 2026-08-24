@@ -1001,10 +1001,20 @@
   }
   // 浏览器内置 TTS 朗读
   function speak(text) {
-    if (!('speechSynthesis' in window)) { return; }
+    if (!('speechSynthesis' in window)) { alert('当前浏览器不支持语音朗读，请用 Edge 或 Chrome 打开'); return; }
+    var voices = speechSynthesis.getVoices();
+    var enVoice = null;
+    for (var vi = 0; vi < voices.length; vi++) {
+      if (voices[vi].lang && voices[vi].lang.toLowerCase().indexOf('en') === 0) { enVoice = voices[vi]; break; }
+    }
+    if (!enVoice) {
+      alert('没有找到英文语音包，无法发音。\n解决方法：Windows 设置 → 时间和语言 → 语音 → 添加语言 → 安装"英语（美国）"语音包，然后刷新页面重试。');
+      return;
+    }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
+    u.voice = enVoice;
     u.rate = 0.95;
     speechSynthesis.speak(u);
   }
