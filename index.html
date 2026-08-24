@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的 AI 学习笔记 · 第一课到第七课</title>
+<title>我的 AI 学习笔记 · 第一课到第八课</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -48,6 +48,7 @@
   .sec-skills{ --acc: var(--green); }
   .sec-golden{ --acc: var(--purple); }
   .sec-l7    { --acc: var(--teal); }
+  .sec-l8    { --acc: #3aa0ff; }
   .sec-l6    { --acc: var(--gold); }
 
   nav {
@@ -450,6 +451,7 @@
       <a href="#pits">踩坑记录</a>
       <a href="#qa">问答</a>
       <a href="#skills">技能树</a>
+      <a href="#lesson8">第八课</a>
       <a href="#lesson7">第七课</a>
       <a href="#lesson6">第六课</a>
       <a href="#golden">四句话</a>
@@ -459,11 +461,11 @@
 
 <header class="hero">
   <div class="kicker">Day 01 · My AI Learning Journal</div>
-  <h1>第一课到第七课<br><em>从零到程序驱动 AI</em></h1>
+  <h1>第一课到第八课<br><em>从零到 AI 记住上下文</em></h1>
   <p>从完全零基础，到写出会判断、会联网、会调用 AI 的程序。每一步踩过的坑，都是最好的老师。</p>
   <div class="meta">
     <span class="pill">2026-08-20 开始</span>
-    <span class="pill">7 课完成</span>
+    <span class="pill">8 课完成</span>
     <span class="pill">程序已联网</span>
     <span class="pill">已驱动本地 AI</span>
   </div>
@@ -527,19 +529,15 @@
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">消息里的文字内容。请求里 user.content=你问的；响应里 message.content=AI 答的</td><td class="eg" data-label="例子">["content"]</td></tr>
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">role</td><td class="zh" data-label="中文意思">角色</td><td class="desc" data-label="具体说明">谁在说话：user=用户，assistant=AI 助手</td><td class="eg" data-label="例子">"role": "user"</td></tr>
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">user</td><td class="zh" data-label="中文意思">用户</td><td class="desc" data-label="具体说明">消息角色之一：用户（你）说的话</td><td class="eg" data-label="例子">"role": "user"</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">context</td><td class="zh" data-label="中文意思">上下文</td><td class="desc" data-label="具体说明">AI 应用最重要的概念：把聊天记录（messages）一起发给 AI，它才知道前因后果（读作：康泰克斯特）</td><td class="eg" data-label="例子">messages = 聊天记录</td></tr>
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">assistant</td><td class="zh" data-label="中文意思">助手</td><td class="desc" data-label="具体说明">消息角色之一：AI 助手说的话</td><td class="eg" data-label="例子">"role": "assistant"</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">author</td><td class="zh" data-label="中文意思">作者</td><td class="desc" data-label="具体说明">JSON 标签：作者（第六课）</td><td class="eg" data-label="例子">poem["author"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">origin</td><td class="zh" data-label="中文意思">出处</td><td class="desc" data-label="具体说明">JSON 标签：诗名（不是 prigin！）</td><td class="eg" data-label="例子">poem["origin"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">content</td><td class="zh" data-label="中文意思">内容</td><td class="desc" data-label="具体说明">JSON 标签：内容（第六课取诗用的）</td><td class="eg" data-label="例子">poem["content"]</td></tr>
         <tr data-cat="data"><td class="en" data-label="英文">category</td><td class="zh" data-label="中文意思">分类</td><td class="desc" data-label="具体说明">JSON 标签：分类</td><td class="eg" data-label="例子">poem["category"]</td></tr>
-        <tr class="new" data-cat="ai"><td class="en" data-label="英文">tools</td><td class="zh" data-label="中文意思">工具清单</td><td class="desc" data-label="具体说明">Agent 能用的所有"手"的登记表。复数 = 列表，能装多个工具；单个叫 tool</td><td class="eg" data-label="例子">tools: [{name: "get_weather"}]</td></tr>
-        <tr class="new" data-cat="ai"><td class="en" data-label="英文">name</td><td class="zh" data-label="中文意思">名字</td><td class="desc" data-label="具体说明">每个工具的唯一标识，调用时靠名字找到对应工具</td><td class="eg" data-label="例子">name: "get_weather"</td></tr>
-        <tr class="new" data-cat="ai"><td class="en" data-label="英文">parameters</td><td class="zh" data-label="中文意思">参数</td><td class="desc" data-label="具体说明">工具需要的输入说明（如查天气要"城市"）。string = 格式说明（放文本），不是具体值</td><td class="eg" data-label="例子">parameters: {city: "string"}</td></tr>
-        <tr class="new" data-cat="ai"><td class="en" data-label="英文">tool_calls</td><td class="zh" data-label="中文意思">工具调用请求</td><td class="desc" data-label="具体说明">模型发出的"我要用这个工具"的指令，写清调用哪个函数、传什么值</td><td class="eg" data-label="例子">tool_calls: [{function: "get_weather"}]</td></tr>
-        <tr class="new" data-cat="ai"><td class="en" data-label="英文">arguments</td><td class="zh" data-label="中文意思">参数值</td><td class="desc" data-label="具体说明">实际填进去的具体值（第二步调用时才填，如"北京"；第一步的 string 只是格式）</td><td class="eg" data-label="例子">arguments: {city: "北京"}</td></tr>
         </tbody>
       </table>
-      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。课外书《深入理解 AI Agent》第 1 章新增（工具调用）：tools、name、parameters、tool_calls、arguments。</div>
+      <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。</div>
     </div>
   </section>
 
@@ -661,6 +659,14 @@
       </div>
 
       <div class="card reveal">
+        <div class="card-title"><span class="num">16</span><h3>第八课新坑：在 &gt;&gt;&gt; 里直接输入文字</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>&gt;&gt;&gt; 我叫什么名字</code></div>
+        <div class="errbox">NameError: name '我叫什么名字' is not defined</div>
+        <div class="row"><span class="tag warn">原因</span>在 &gt;&gt;&gt; 里直接输入一串文字，Python 会把它当成"名字"去找，找不到就报错。</div>
+        <div class="remember">想问 AI，把问题写进代码（content 里）发给它，不能直接打字。</div>
+      </div>
+
+      <div class="card reveal">
         <div class="card-title"><span class="num" style="color:var(--orange);border-color:rgba(125,211,252,0.35)">＋</span><h3>其他小插曲</h3></div>
         <div class="row">Ctrl+C 打断 if 块（KeyboardInterrupt）→ 重输就行。</div>
         <div class="row">提示词和输入连在一起（njsmmzbaba）→ 小瑕疵，不影响。</div>
@@ -758,7 +764,19 @@
         <div class="q">请求和响应为什么是两回事？</div>
         <div class="a">请求（data）= 你说的话；响应（r）= AI 的话。AI 不会把你问的再抄一遍，它只返回自己的回答。</div>
       </div>
-    </section>
+          <div class="card qa reveal">
+        <div class="q">为什么要自己写 assistant 那条消息？</div>
+        <div class="a">不是规定 AI 必须说，是伪造"历史记录"当背景资料——让 AI 知道前因后果。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">stream: False 是 Python 的规则吗？</div>
+        <div class="a">不是！是 Ollama 接口的参数。False = 让 AI 一次说完，方便 r.json() 一次取完整回答。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">为什么是 r = ？</div>
+        <div class="a">r 只是名字（result 结果），随便起。r = requests.post(...) = 接住 AI 寄回的响应。</div>
+      </div>
+</section>
 
     <section id="skills" class="sec-skills">
       <div class="sec-head reveal">
@@ -780,6 +798,9 @@
         <div class="skill-item"><span class="check">✓</span><span>按标签取值：poem["content"]</span></div>
         <div class="skill-item"><span class="check">✓</span><span>向 AI 提问：requests.post(地址, json=data)</span></div>
         <div class="skill-item"><span class="check">✓</span><span>取 AI 回答：r.json()["message"]["content"]</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>多轮对话：messages 列表放聊天记录</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>上下文记忆：把记录寄给 AI，它看完再回答</span></div>
+
       </div>
     </section>
 
@@ -797,6 +818,32 @@
       </div>
     </section>
   </div>
+
+
+  <!-- ===== 全宽：第八课（亮蓝） ===== -->
+  <section id="lesson8" class="full sec-l8">
+    <div class="sec-head reveal">
+      <div class="no">Part 07 · Lesson 8</div>
+      <h2>第八课：多轮对话（上下文记忆）</h2>
+    </div>
+
+    <div class="card ai-card reveal" style="border-top-color:#3aa0ff;">
+      <div class="label" style="color:#3aa0ff;">多轮对话 · AI 记住了上下文</div>
+      <div class="ask">user：我叫爸爸</div>
+      <div class="ask">assistant：你好，爸爸！</div>
+      <div class="ask">user：我叫什么名字？</div>
+      <div class="answer">AI：您刚才提到您叫"爸爸"…</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>核心逻辑：AI 没有记忆，把聊天记录寄给它</h3></div>
+      <div class="row"><span class="tag good">第1步</span><code>import requests</code> —— 拿进上网工具包</div>
+      <div class="row"><span class="tag good">第2步</span><code>data = {"model": "qwen2.5:7b", "messages": [3条消息], "stream": False}</code> —— 打包聊天记录（messages 列表）</div>
+      <div class="row"><span class="tag good">第3步</span><code>r = requests.post("http://localhost:11434/api/chat", json=data)</code> —— 把聊天记录寄给 AI</div>
+      <div class="row"><span class="tag good">第4步</span><code>print(r.json()["message"]["content"])</code> —— 取出 AI 的回答并显示</div>
+      <div class="remember">messages = 聊天记录（列表 [ ]，一条条排）。AI 看完整个记录再回答——这就是"上下文记忆"（context）。</div>
+    </div>
+  </section>
 
   <!-- ===== 全宽：第七课（电光蓝） ===== -->
   <section id="lesson7" class="full sec-l7">
