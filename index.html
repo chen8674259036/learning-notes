@@ -49,6 +49,7 @@
   .sec-golden{ --acc: var(--purple); }
   .sec-l7    { --acc: var(--teal); }
   .sec-l8    { --acc: #3aa0ff; }
+  .sec-l9    { --acc: #fb923c; }
   .sec-l0    { --acc: var(--green); }
   .sec-l6    { --acc: var(--gold); }
 
@@ -491,6 +492,7 @@
       <a href="#pits">踩坑记录</a>
       <a href="#qa">问答</a>
       <a href="#skills">技能树</a>
+      <a href="#lesson9">第九十课</a>
       <a href="#lesson0">地基课</a>
       <a href="#lesson8">第八课</a>
       <a href="#lesson7">第七课</a>
@@ -585,6 +587,10 @@
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">create</td><td class="zh" data-label="中文意思">创建 / 按下键</td><td class="desc" data-label="具体说明">真正执行对话的按钮。前面全是"位置"，create 是"动作"；AI 的回答是现场"创建"出来的，不是仓库里取现成的</td><td class="eg" data-label="例子">.create(model=..., messages=...)</td></tr>
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">response</td><td class="zh" data-label="中文意思">回答盒子</td><td class="desc" data-label="具体说明">create 按下去之后，AI 的回答装进这个盒子（变量名可随便起，如 answer）；要拿文字还得再拆盒子</td><td class="eg" data-label="例子">response = client.chat...</td></tr>
         <tr class="new" data-cat="ai"><td class="en" data-label="英文">messages</td><td class="zh" data-label="中文意思">聊天记录列表</td><td class="desc" data-label="具体说明">复数 = 列表（[ ] 能装多条）！不是单条消息，是整个对话记录：你一句 AI 一句全排里面。AI 读完整个列表才回答——这就是多轮对话的秘密</td><td class="eg" data-label="例子">messages=[{"role":"user","content":"你好"}]</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">get</td><td class="zh" data-label="中文意思">获取（温和版）</td><td class="desc" data-label="具体说明">box.get("标签", 备用)：标签在就拿真货，不在就拿备用值——永不崩。方括号 [ ] 是硬取（不在就崩），get 是温和问（不在拿备用）。有真货永远优先真货</td><td class="eg" data-label="例子">box.get("message", {})</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">in</td><td class="zh" data-label="中文意思">在……里面</td><td class="desc" data-label="具体说明">判断某个标签存在不存在，结果是 True（在）或 False（不在）。先判断再取，程序的两条路：有问题走报警路，没问题走正常路</td><td class="eg" data-label="例子">if "error" in box:</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">True / False</td><td class="zh" data-label="中文意思">真 / 假</td><td class="desc" data-label="具体说明">判断题的两种答案。注意大小写：首字母必须大写（Python 规矩）</td><td class="eg" data-label="例子">"error" in box → False</td></tr>
+        <tr class="new" data-cat="ai"><td class="en" data-label="英文">crash</td><td class="zh" data-label="中文意思">崩溃</td><td class="desc" data-label="具体说明">程序报红字然后停住。防崩溃 = 给程序装安全带（.get 备用值 + if 判断），行话叫 error handling（错误处理）</td><td class="eg" data-label="例子">KeyError 崩溃 → 改用 .get 不崩</td></tr>
         </tbody>
       </table>
       <div class="remember" style="margin-top:12px;">紫色行 = 第七课新增的单词（post、localhost、port、api、chat、stream、message、content、role、user、assistant）。地基课新增（看懂代码三张图）：client、completions、create、response、messages。</div>
@@ -717,6 +723,21 @@
       </div>
 
       <div class="card reveal">
+        <div class="card-title"><span class="num">17</span><h3>第九课新坑：硬拆不存在的标签（今天的大坑！）</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>print(r.json()["message"]["content"])</code>（Ollama 状态不好时运行）</div>
+        <div class="errbox">KeyError: 'message'</div>
+        <div class="row"><span class="tag warn">原因</span>那一刻 Ollama 寄回的是"报错包裹"，只有 error 标签没有 message。方括号硬拆不存在的标签 = 当场崩溃。</div>
+        <div class="remember">排错三步：别慌 → print(r.text) 看原始包裹 → 改用 .get("标签", 备用) 安全取。</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title"><span class="num">18</span><h3>第十课新坑：查标签没分大小写</h3></div>
+        <div class="row"><span class="tag bad">我输入</span><code>"DONE" in box</code></div>
+        <div class="row"><span class="tag warn">原因</span>包裹里的标签是小写 done，查 "DONE" 永远查不到（大小写敏感，老坑第 9 号又来了）。</div>
+        <div class="remember">标签照原样长：DONE ≠ done，查什么就得一字不差写什么。</div>
+      </div>
+
+      <div class="card reveal">
         <div class="card-title"><span class="num" style="color:var(--orange);border-color:rgba(125,211,252,0.35)">＋</span><h3>其他小插曲</h3></div>
         <div class="row">Ctrl+C 打断 if 块（KeyboardInterrupt）→ 重输就行。</div>
         <div class="row">提示词和输入连在一起（njsmmzbaba）→ 小瑕疵，不影响。</div>
@@ -826,6 +847,14 @@
         <div class="q">为什么是 r = ？</div>
         <div class="a">r 只是名字（result 结果），随便起。r = requests.post(...) = 接住 AI 寄回的响应。</div>
       </div>
+      <div class="card qa reveal">
+        <div class="q">KeyError 是什么？为什么会崩？</div>
+        <div class="a">Key = 标签。去包裹上找一个不存在的标签，Python 找不到就报 KeyError 崩溃。保险取法是 .get("标签", 备用值)。</div>
+      </div>
+      <div class="card qa reveal">
+        <div class="q">为什么有 error 判断还要打印"AI 出错了"？是故意的吗？</div>
+        <div class="a">故意的！那是烟雾报警器：平时不响，出错那天响，还把错误原因（box["error"]）一起打印出来，人能看懂。能走进那行，说明 if 已确认 error 存在，所以方括号也安全。</div>
+      </div>
 </section>
 
     <section id="skills" class="sec-skills">
@@ -850,6 +879,9 @@
         <div class="skill-item"><span class="check">✓</span><span>取 AI 回答：r.json()["message"]["content"]</span></div>
         <div class="skill-item"><span class="check">✓</span><span>多轮对话：messages 列表放聊天记录</span></div>
         <div class="skill-item"><span class="check">✓</span><span>上下文记忆：把记录寄给 AI，它看完再回答</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>排错：print(r.text) 先看原始包裹</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>安全取值：box.get("标签", 备用) 永不崩</span></div>
+        <div class="skill-item"><span class="check">✓</span><span>容错判断：if "error" in box 走两条路</span></div>
 
       </div>
     </section>
@@ -869,6 +901,55 @@
     </section>
   </div>
 
+
+  <!-- ===== 全宽：第九~十课（橙） ===== -->
+  <section id="lesson9" class="full sec-l9">
+    <div class="sec-head reveal">
+      <div class="no">Part 08 · Lesson 9-10</div>
+      <h2>第九十课：容错 —— 让程序撞不坏</h2>
+    </div>
+
+    <div class="card ai-card reveal" style="border-top-color:#fb923c;">
+      <div class="label" style="color:#fb923c;">真实事故 · KeyError: 'message'</div>
+      <div class="ask">运行 ai3.py → 突然崩了：KeyError: 'message'，一堆英文红字</div>
+      <div class="answer">原因：Ollama 那一刻状态不好，寄回来的是"报错包裹"（只有 error 标签，没有 message）。程序硬拆 ["message"]，标签不存在 → 当场崩溃。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>排错第一步：先看原始包裹（不猜）</h3></div>
+      <div class="row"><span class="tag good">第1步</span><code>print(r.text)</code> —— 把包裹原样倒出来，看清里面到底有什么标签</div>
+      <div class="row"><span class="tag good">第2步</span>正常包裹长这样：model（谁干的）、message（回答在里面）、done（干完没）</div>
+      <div class="row"><span class="tag good">第3步</span>看清标签后，再写取数据的代码 —— 标签名从来不是猜的</div>
+      <div class="remember">排错套路：报错先别慌 → r.text 看原始数据 → 照着真实的标签写代码。这招和第六课找诗的标签是同一招。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>第九课：.get() 安全取法 —— 奶茶没珍珠就换椰果</h3></div>
+      <div class="row"><span class="tag good">硬取</span><code>box["message"]</code> —— 方括号：非要拿到不可，标签不在当场崩</div>
+      <div class="row"><span class="tag good">温和取</span><code>box.get("message", 备用)</code> —— 标签在拿真货，不在拿备用，永不崩</div>
+      <div class="row"><span class="tag good">实战</span><code>r.json().get("message", {}).get("content", "AI 没有回答")</code></div>
+      <div class="row"><span class="tag good">规则</span>有真货永远优先真货；备用值只为兜底，有真货时一次都用不上</div>
+      <div class="remember">类比：「一杯珍珠奶茶，没有珍珠就换椰果」——有珍珠喝珍珠奶茶，椰果根本用不上。备用的存在是为了不落空。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">★</span><h3>第十课：if + in —— 程序自己判断（烟雾报警器）</h3></div>
+      <div class="row"><span class="tag good">第1步</span><code>box = r.json()</code> —— 包裹整理好存进盒子</div>
+      <div class="row"><span class="tag good">第2步</span><code>if "error" in box:</code> —— in 判断标签存在吗？真/假</div>
+      <div class="row"><span class="tag good">第3步</span><code>print("AI 出错了:", box["error"])</code> —— 报警路：打印人话提醒 + 错误原因（此时 error 必然存在，方括号也安全）</div>
+      <div class="row"><span class="tag good">第4步</span><code>else:</code> + <code>print(box.get(...))</code> —— 正常路：安全拆包裹打印回答</div>
+      <div class="remember">先判断，再取。烟雾报警器平时不响，出事那天响，还告诉你为什么响。程序从此两条路都通，永远不崩。</div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title"><span class="num">＋</span><h3>新单词（第九十课新增）</h3></div>
+      <div class="row"><span class="tag good">get</span>获取 —— 温和地拿，拿不到用备用</div>
+      <div class="row"><span class="tag good">in</span>在……里面 —— 判断标签存不存在，结果是 True / False</div>
+      <div class="row"><span class="tag good">True / False</span>真 / 假 —— 判断题的两种答案</div>
+      <div class="row"><span class="tag good">crash</span>崩溃 —— 程序报红字停住；error handling = 错误处理 = 程序的安全带</div>
+      <div class="remember">大小写敏感再立功：DONE ≠ done，标签照原样长，查错一个字母都查不到。</div>
+    </div>
+  </section>
 
   <!-- ===== 全宽：地基课（青绿） ===== -->
   <section id="lesson0" class="full sec-l0">
